@@ -1,0 +1,115 @@
+<template>
+    <!-- Card wrapper if enabled -->
+    <template if:true={showAsCard}>
+        <lightning-card title={cardTitle}>
+            <div class="component-wrapper">
+                <!-- Control Buttons -->
+                <div class="button-container">
+                    <template if:false={hideManualButton}>
+                        <button class="verify-button" onclick={handleManualClick} style={buttonStyle}>
+                            {manualButtonLabel}
+                        </button>
+                    </template>
+                    <template if:false={hideApiButton}>
+                        <button class="verify-button" onclick={handleApiClick} style={buttonStyle}>
+                            {apiButtonLabel}
+                        </button>
+                    </template>
+                </div>
+
+                <!-- Progress Indicator - Show after API button clicked but hide when complete -->
+                <template if:true={hasStarted}>
+                    <template if:false={isProgressComplete}>
+                        <div class="progress-container">
+                            <template for:each={steps} for:item="step" for:index="index">
+                                <div key={step.id} class="step-wrapper">
+                                    <!-- Circle/Checkmark -->
+                                    <div class={step.circleClass}>
+                                        <template if:true={step.isComplete}>
+                                            <svg class="checkmark" viewBox="0 0 24 24">
+                                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="white"/>
+                                            </svg>
+                                        </template>
+                                    </div>
+
+                                    <!-- Step Label -->
+                                    <div class={step.labelClass}>
+                                        {step.label}
+                                    </div>
+
+                                    <!-- Connecting Line (not shown after last step) -->
+                                    <template if:false={step.isLast}>
+                                        <div class={step.lineClass}></div>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </template>
+
+                <!-- Completion Message - Only show when complete -->
+                <template if:true={isProgressComplete}>
+                    <div class="completion-message">
+                        {completionMessage}
+                    </div>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+
+    <!-- Non-card display -->
+    <template if:false={showAsCard}>
+        <div class="component-wrapper">
+            <!-- Control Buttons -->
+            <div class="button-container">
+                <template if:false={hideManualButton}>
+                    <button class="verify-button" onclick={handleManualClick} style={buttonStyle}>
+                        {manualButtonLabel}
+                    </button>
+                </template>
+                <template if:false={hideApiButton}>
+                    <button class="verify-button" onclick={handleApiClick} style={buttonStyle}>
+                        {apiButtonLabel}
+                    </button>
+                </template>
+            </div>
+
+            <!-- Progress Indicator - Show after API button clicked but hide when complete -->
+            <template if:true={hasStarted}>
+                <template if:false={isProgressComplete}>
+                    <div class="progress-container">
+                        <template for:each={steps} for:item="step" for:index="index">
+                            <div key={step.id} class="step-wrapper">
+                                <!-- Circle/Checkmark -->
+                                <div class={step.circleClass}>
+                                    <template if:true={step.isComplete}>
+                                        <svg class="checkmark" viewBox="0 0 24 24">
+                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="white"/>
+                                        </svg>
+                                    </template>
+                                </div>
+
+                                <!-- Step Label -->
+                                <div class={step.labelClass}>
+                                    {step.label}
+                                </div>
+
+                                <!-- Connecting Line (not shown after last step) -->
+                                <template if:false={step.isLast}>
+                                    <div class={step.lineClass}></div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+
+            <!-- Completion Message - Only show when complete -->
+            <template if:true={isProgressComplete}>
+                <div class="completion-message">
+                    {completionMessage}
+                </div>
+            </template>
+        </div>
+    </template>
+</template>

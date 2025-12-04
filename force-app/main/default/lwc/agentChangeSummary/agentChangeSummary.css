@@ -1,0 +1,14 @@
+.summary-content {
+    background-color: #f3f3f3;
+    border-left: 4px solid #0176d3;
+    padding: 1rem;
+    border-radius: 4px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.summary-content lightning-formatted-text {
+    font-size: 14px;
+    color: #3e3e3c;
+}

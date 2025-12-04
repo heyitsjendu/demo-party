@@ -1,0 +1,259 @@
+/* userLeadSelector.css */
+:host {
+    display: block;
+    /* Modern Color Palette */
+    --color-bg-canvas: #FFFFFF;
+    --color-bg-surface: #FFFFFF;
+    --color-text-primary: #111827;
+    --color-text-secondary: #6B7280;
+    --color-primary-brand: #0176D3;
+    --border-radius-xl: 16px;
+    
+    /* Soft Shadow */
+    --shadow-elevation: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 
+                        0 4px 6px -2px rgba(0, 0, 0, 0.025);
+}
+
+.main-container {
+    background-color: var(--color-bg-canvas);
+    padding: 2rem;
+    border-radius: var(--border-radius-xl);
+}
+
+/* --- Layout Grid --- */
+.custom-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    /* STRETCH: Forces both cards to be the same height (based on the tallest one) */
+    align-items: stretch;
+}
+
+.col-user { flex: 1; min-width: 280px; }
+.col-lead { flex: 3; min-width: 0; }
+
+/* --- Card Structure --- */
+.selection-panel {
+    background-color: var(--color-bg-surface);
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-elevation);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.5);
+    /* 100% height fills the area defined by 'stretch' above */
+    height: 100%; 
+}
+
+/* --- Header --- */
+.panel-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #E5E7EB;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0; /* Prevents header from squishing */
+}
+
+.header-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* --- User List (Tiles) --- */
+.user-list-container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; 
+    overflow-y: auto; /* Scroll if list is very long */
+    flex-grow: 1;     /* Expand to fill empty space */
+}
+
+/* Tile Styling */
+.user-tile {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.user-tile:hover {
+    background-color: #F3F4F6;
+}
+
+.user-tile.selected-item {
+    background-color: #EFF6FF;
+    border-color: #BFDBFE;
+}
+
+/* Avatar Styling */
+.avatar-circle {
+    width: 36px;
+    height: 36px;
+    background-color: #E5E7EB;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4B5563;
+    margin-right: 12px;
+    flex-shrink: 0;
+    overflow: hidden; /* Crops the square image to a circle */
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.user-tile.selected-item .avatar-circle {
+    background-color: #DBEAFE;
+    color: #1E40AF;
+}
+
+.user-info {
+    flex-grow: 1;
+}
+
+.user-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1F2937;
+}
+
+.user-role {
+    font-size: 0.75rem;
+    color: #6B7280;
+}
+
+.check-icon {
+    margin-left: auto;
+    --sds-c-icon-color-foreground: #0176D3;
+}
+
+/* --- Datatable Area --- */
+.datatable-wrapper {
+    flex-grow: 1; /* Expand to fill empty space */
+    height: auto; 
+    /* No min-height avoids forcing extra space if data is small */
+}
+
+/* --- Footer --- */
+.panel-footer {
+    padding: 1rem 1.5rem;
+    background-color: #F9FAFB;
+    border-top: 1px solid #E5E7EB;
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: right;
+    flex-shrink: 0;
+    margin-top: auto; /* KEY: Pushes footer to the bottom of the card */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .custom-grid { flex-direction: column; }
+    .selection-panel { height: auto; }
+}
+
+/* --- Leads Panel: modern / Apple Store-inspired --- */
+
+.selection-panel_leads {
+    /* Soft card with more generous rounding and subtle depth */
+    border-radius: 24px;
+    padding: 1.25rem 1.5rem 1.5rem;
+    background: radial-gradient(circle at top left, #ffffff 0, #f9fafb 45%, #e5e7eb 100%);
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header: icon + stacked title */
+.panel-header_leads {
+    padding-bottom: 0.9rem;
+    margin-bottom: 0.9rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.header-title_leads {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header-icon_leads {
+    /* circular, slightly tinted icon background */
+    padding: 0.35rem;
+    border-radius: 999px;
+    background-color: #e0f2fe;
+    --sds-c-icon-color-foreground: #0369a1;
+}
+
+.header-title-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-title-main {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+}
+
+.header-title-sub {
+    margin-top: 0.1rem;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+}
+
+/* Datatable region: glassy, borderless table inside the card */
+.datatable-wrapper_leads {
+    margin-top: 0.25rem;
+    padding: 0.35rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    flex-grow: 1;
+    min-height: 0;
+
+    /* SLDS styling hooks for lightning-datatable */
+    --slds-c-datatable-color-background: transparent;
+    --slds-c-datatable-header-color-background: #f3f4f6;
+    --slds-c-datatable-header-text-color: #0f172a;
+    --slds-c-datatable-row-color-background: #ffffff;
+    --slds-c-datatable-row-color-background-hover: #f1f5f9;
+    --slds-c-datatable-color-border: transparent;
+    --slds-c-datatable-row-color-border: #e5e7eb;
+}
+
+/* Round the actual table edges slightly */
+.datatable-wrapper_leads lightning-datatable {
+    border-radius: 14px;
+}
+
+/* Footer: subtle status bar, right-aligned */
+.panel-footer_leads {
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.25);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-align: right;
+}

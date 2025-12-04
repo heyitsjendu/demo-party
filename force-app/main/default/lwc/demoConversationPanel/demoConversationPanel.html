@@ -1,0 +1,79 @@
+<template>
+  <div class="conversation-container slds-scope">
+    <!-- Header -->
+    <div class="customer-name-section">
+      <div class="customer-info">
+        <img src={supervisorIcon} alt="Supervisor Icon" class="customer-icon" />
+        <a href="#" class="customer-name" onclick={handleNameClick}>Sanjna Parulekar | Inbound | +180885...</a>
+      </div>
+
+      <!-- Window controls: minimize, maximize, close -->
+      <div class="window-controls">
+        <button class="window-control" onclick={handleMinimizeClick} title="Minimize">
+          <lightning-icon icon-name="utility:dash" size="xx-small" alternative-text="Minimize"></lightning-icon>
+        </button>
+        <button class="window-control" onclick={handleMaximizeClick} title="Maximize">
+          <lightning-icon icon-name="utility:expand_alt" size="xx-small" alternative-text="Maximize"></lightning-icon>
+        </button>
+        <button class="window-control" onclick={handleCloseClick} title="Close">
+          <lightning-icon icon-name="utility:close" size="xx-small" alternative-text="Close"></lightning-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Sticky buttons band -->
+    <div class="buttons-section">
+      <button class="action-button">
+        <lightning-icon icon-name="utility:change_owner" size="x-small"></lightning-icon>
+        Transfer to Rep
+      </button>
+      <button class="action-button">
+        <lightning-icon icon-name="utility:lower_flag" size="x-small"></lightning-icon>
+        Lower
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div class="conversation-content" onscroll={onScroll}>
+      <template for:each={displayedEvents} for:item="event">
+        <div key={event.id}>
+          <template if:true={event.isEventCenter}>
+            <div class="conversation-event center-aligned" data-call-ended={event.isCallEnded}>
+              <lightning-icon icon-name="utility:chat" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+              {event.content}
+            </div>
+          </template>
+          <template if:true={event.isEventCenterTopBorder}>
+            <div class="conversation-event center-aligned top-border" data-call-ended={event.isCallEnded}>
+              <lightning-icon icon-name="utility:chat" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+              {event.content}
+            </div>
+          </template>
+          <template if:true={event.isEventCenterNoBorder}>
+            <div class="conversation-event center-aligned no-border" data-call-ended={event.isCallEnded}>
+              <lightning-icon icon-name="utility:change_owner" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+              {event.content}
+            </div>
+          </template>
+          <template if:true={event.isAgentMessage}>
+            <div class="message-bubble">
+              <div class="agent-message">{event.content}</div>
+              <div class="message-metadata agent-metadata">{event.timestamp}</div>
+            </div>
+          </template>
+          <template if:true={event.isCustomerMessage}>
+            <div class="message-bubble">
+              <div class="customer-message">{event.content}</div>
+              <div class="message-metadata customer-metadata">
+                <a href="#" class="phone-number">{customerPhone}</a> • {event.time}
+              </div>
+            </div>
+          </template>
+        </div>
+      </template>
+
+      <!-- bottom anchor for robust autoscroll -->
+      <div data-id="bottom-anchor" style="height:1px;"></div>
+    </div>
+  </div>
+</template>

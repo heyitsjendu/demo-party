@@ -1,0 +1,35 @@
+/* Remove underline / active bar drawn with ::after */
+.slds-utility-bar__item::after,
+.slds-utility-bar__item.slds-is-active::after,
+.slds-utility-bar__item.slds-is-selected::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Kill background/box-shadow/outline for all states */
+.slds-utility-bar__item,
+.slds-utility-bar__item.slds-is-active,
+.slds-utility-bar__item.slds-is-selected,
+.slds-utility-bar__item .slds-button,
+.slds-utility-bar__item .slds-button:hover,
+.slds-utility-bar__item .slds-button:active,
+.slds-utility-bar__item .slds-button:focus,
+.slds-utility-bar__item .slds-button:focus-visible {
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  text-decoration: none !important;
+  border-color: transparent !important;
+}
+
+/* Some shells apply an inner ring via :focus-within */
+.slds-utility-bar__item:focus-within {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Remove tap highlight on WebKit (mobile, some desktops) */
+.slds-utility-bar__item .slds-button,
+.slds-utility-bar__item .slds-utility-bar__action {
+  -webkit-tap-highlight-color: transparent !important;
+}

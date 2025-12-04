@@ -1,0 +1,43 @@
+/* Hide utility bar header - multiple selectors to ensure it works */
+.oneConsoleUtilityPanel .slds-panel__header,
+.slds-utility-panel__header,
+.utility-panel-header,
+div[class*="utilityPanel"] .slds-panel__header {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Adjust panel body to fill space */ 
+.oneConsoleUtilityPanel .slds-panel__body,
+.slds-utility-panel__body,
+div[class*="utilityPanel"] .slds-panel__body {
+    padding-top: 0 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    max-height: 100% !important;
+}
+
+/* Ensure the utility panel itself doesn't scroll */
+.oneConsoleUtilityPanel,
+.slds-utility-panel,
+.oneUtilityBar {
+    overflow: hidden !important;
+}
+
+/* Hide the Recent label specifically */
+.slds-panel__header-title {
+    display: none !important;
+}
+
+/* Remove shadow and borders from outer utility panel */
+.oneConsoleUtilityPanel,
+.slds-utility-panel {
+    box-shadow: none !important;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+    border: none !important;
+}

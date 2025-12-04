@@ -1,0 +1,4 @@
+.utilityBarContainer .utilityItem[data-utility-id="*"] .slds-utility-panel__body {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

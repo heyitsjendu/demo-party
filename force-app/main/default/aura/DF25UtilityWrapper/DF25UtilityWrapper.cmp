@@ -1,0 +1,7 @@
+<!-- DF25UtilityWrapper.cmp -->
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+    <lightning:utilityBarAPI aura:id="utilityApi"/>
+    <c:dF25_Conversation_Simulator
+        onutilityshrink="{!c.onUtilityShrink}"
+        onutilityrestore="{!c.onUtilityRestore}"/>
+</aura:component>

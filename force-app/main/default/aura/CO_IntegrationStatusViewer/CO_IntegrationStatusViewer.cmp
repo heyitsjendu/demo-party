@@ -1,0 +1,69 @@
+<aura:component
+  implements="lightning:availableForFlowScreens,force:hasRecordId,forceCommunity:availableForAllPageTypes,flexipage:availableForAllPageTypes"
+  access="global">
+  <aura:attribute name="cardTitle" type="String" />
+  <aura:attribute name="cardTitleColor" type="String" />
+  <aura:attribute name="cardIcon" type="String" />
+  <aura:attribute name="buttonIcon" type="String" />
+  <aura:attribute name="intervalTime" type="Integer" />
+  <aura:attribute name="checkBoxApiName" type="String" />
+  <aura:attribute name="toastMessage" type="String" />
+  <aura:attribute name="originalStepsWrapper" type="String" />
+
+  <aura:attribute name="originalSteps" type="List" />
+  <aura:attribute name="steps" type="List" />
+  <aura:attribute name="intervalId" type="String" />
+
+  <aura:attribute name="record" type="Object" />
+
+  <force:recordData aura:id="recordLoader" mode="EDIT" targetFields="{!v.record}" />
+
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+  <lightning:card iconName="{! v.cardIcon ? v.cardIcon : null}">
+    <aura:set attribute="title">
+      <aura:if isTrue="{!v.cardTitle}">
+        <span style="{! 'color:'+ v.cardTitleColor }">
+          <div>{! v.cardTitle }</div>
+        </span>
+      </aura:if>
+    </aura:set>
+    <aura:set attribute="actions">
+      <aura:if isTrue="{!v.buttonIcon}">
+        <lightning:buttonIcon iconName="{!v.buttonIcon}" variant="border" onclick="{! c.start }"
+          alternativeText="Start" />
+      </aura:if>
+    </aura:set>
+
+    <lightning:layout verticalAlign="center" horizontalAlign="center">
+      <lightning:layoutItem>
+        <div class="slds-progress slds-progress_vertical">
+          <ol class="slds-progress__list">
+            <aura:iteration items="{!v.steps}" var="step">
+              <aura:if isTrue="{!step.isActive}">
+                <li class="slds-progress__item slds-is-active">
+                  <div class="slds-progress__marker"></div>
+                  <div class="slds-progress__item_content slds-grid slds-grid_align-spread" style="color: #000000;">{!step.text}</div>
+                </li>
+                <aura:set attribute="else">
+                  <li class="slds-progress__item">
+                    <div
+                      class="{!step.isComplete ? 'slds-progress__marker slds-progress__marker_icon' : 'slds-progress__marker'}">
+                      <aura:if isTrue="{!step.isComplete}">
+                        <span class="green-checkmark">
+                          <lightning:icon variant="success" size="x-small" iconName="utility:success" 
+                            alternativeText="Completed" />
+                        </span>
+                      </aura:if>
+                    </div>
+                    <div class="slds-progress__item_content slds-grid slds-grid_align-spread" style="{! step.isComplete ? 'color: #000000;' : 'color: #D3D3D3;'}">{!step.text}</div>
+                  </li>
+                </aura:set>
+              </aura:if>
+            </aura:iteration>
+          </ol>
+        </div>
+      </lightning:layoutItem>
+    </lightning:layout>
+  </lightning:card>
+</aura:component>

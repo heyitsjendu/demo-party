@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <cacheControl>Public</cacheControl>
+    <contentType>audio/mpeg</contentType>
+    <description>Agent: “I can create the order for you right now, but to guarantee Saturday delivery, we need a specialist to review shipping and inventory in real-time. Would you like me to generate this order and transfer you to a representative?”</description>
+</StaticResource>

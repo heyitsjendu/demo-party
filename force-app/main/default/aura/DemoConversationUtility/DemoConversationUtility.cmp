@@ -1,0 +1,12 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+    <ltng:require styles="{!$Resource.HideUtilityHeader}"/>
+    <lightning:utilityBarAPI aura:id="utilityApi"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+
+    <c:demoConversationPanel aura:id="panel"
+        onutilityshrink="{!c.onShrink}"
+        onutilityrestore="{!c.onRestore}"
+        onutilityclose="{!c.onClose}" />
+
+</aura:component>

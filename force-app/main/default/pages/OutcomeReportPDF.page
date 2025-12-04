@@ -1,0 +1,234 @@
+<apex:page controller="OutcomeReportPDFController" 
+           renderAs="pdf" 
+           standardStylesheets="false"
+           applyBodyTag="false"
+           applyHtmlTag="false"
+           showHeader="false">
+    
+    <html>
+        <head>
+            <style type="text/css">
+                @page {
+                    size: landscape;
+                    margin: 0.3in;
+                }
+                
+                body {
+                    font-family: Arial, sans-serif;
+                    font-size: 10pt;
+                }
+                
+                .account-info {
+                    font-size: 9pt;
+                    margin-bottom: 10px;
+                    padding: 5px;
+                    border: 1px solid #ccc;
+                    background-color: #f9f9f9;
+                }
+                
+                .account-info strong {
+                    font-weight: bold;
+                    margin-right: 10px;
+                }
+                
+                .outcome-header {
+                    font-size: 11pt;
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                    padding: 5px;
+                    border: 1px solid #000;
+                    background-color: #f0f0f0;
+                }
+                
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 20px;
+                    table-layout: fixed;
+                }
+                
+                th, td {
+                    border: 1px solid #000;
+                    padding: 2px;
+                    text-align: center;
+                    font-size: 7pt;
+                    overflow: hidden;
+                }
+                
+                th {
+                    background-color: #e0e0e0;
+                    font-weight: bold;
+                    height: 30px;
+                    vertical-align: bottom;
+                }
+                
+                .action-step-name {
+                    text-align: left;
+                    font-weight: normal;
+                    width: 120px;
+                    font-size: 8pt;
+                    padding: 3px;
+                }
+                
+                .day-header {
+                    width: 18px;
+                    font-size: 7pt;
+                }
+                
+                .day-cell {
+                    height: 35px;
+                    vertical-align: middle;
+                    padding: 1px;
+                }
+                
+                .vertical-text {
+                    writing-mode: vertical-rl;
+                    text-orientation: mixed;
+                    transform: rotate(180deg);
+                    font-size: 7pt;
+                    white-space: nowrap;
+                }
+                
+                .page-break {
+                    page-break-after: always;
+                }
+                
+                /* Action Step Details Table Styles */
+                .details-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+                
+                .details-table th,
+                .details-table td {
+                    border: 1px solid #000;
+                    padding: 5px;
+                    font-size: 8pt;
+                    text-align: left;
+                    vertical-align: top;
+                }
+                
+                .details-table th {
+                    background-color: #e0e0e0;
+                    font-weight: bold;
+                    text-align: center;
+                }
+                
+                .details-table .col-action-step {
+                    width: 15%;
+                    font-weight: bold;
+                }
+                
+                .details-table .col-description {
+                    width: 40%;
+                }
+                
+                .details-table .col-frequency {
+                    width: 15%;
+                    text-align: center;
+                }
+                
+                .details-table .col-methodology {
+                    width: 30%;
+                }
+            </style>
+        </head>
+        
+        <body>
+            <apex:repeat value="{!outcomes}" var="outcome">
+                
+                <div class="account-info">
+                    <strong>Account:</strong> {!outcome.accountName}
+                    <span style="margin-left: 30px;">
+                        <strong>Created Date:</strong> 
+                        <apex:outputText value="{0,date,MM/dd/yyyy}">
+                            <apex:param value="{!outcome.createdDate}" />
+                        </apex:outputText>
+                    </span>
+                </div>
+                
+                <div class="outcome-header">
+                    {!outcome.outcomeName}
+                    <apex:outputText value=" - {!outcome.outcomeDescription}" rendered="{!NOT(ISBLANK(outcome.outcomeDescription))}"/>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="action-step-name">Action Step</th>
+                            <th class="day-header">1</th>
+                            <th class="day-header">2</th>
+                            <th class="day-header">3</th>
+                            <th class="day-header">4</th>
+                            <th class="day-header">5</th>
+                            <th class="day-header">6</th>
+                            <th class="day-header">7</th>
+                            <th class="day-header">8</th>
+                            <th class="day-header">9</th>
+                            <th class="day-header">10</th>
+                            <th class="day-header">11</th>
+                            <th class="day-header">12</th>
+                            <th class="day-header">13</th>
+                            <th class="day-header">14</th>
+                            <th class="day-header">15</th>
+                            <th class="day-header">16</th>
+                            <th class="day-header">17</th>
+                            <th class="day-header">18</th>
+                            <th class="day-header">19</th>
+                            <th class="day-header">20</th>
+                            <th class="day-header">21</th>
+                            <th class="day-header">22</th>
+                            <th class="day-header">23</th>
+                            <th class="day-header">24</th>
+                            <th class="day-header">25</th>
+                            <th class="day-header">26</th>
+                            <th class="day-header">27</th>
+                            <th class="day-header">28</th>
+                            <th class="day-header">29</th>
+                            <th class="day-header">30</th>
+                            <th class="day-header">31</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!outcome.rows}" var="row">
+                            <tr>
+                                <td class="action-step-name">{!row.actionStepName}</td>
+                                <apex:repeat value="{!row.dayCodes}" var="code">
+                                    <td class="day-cell">
+                                        <div class="vertical-text">{!code}</div>
+                                    </td>
+                                </apex:repeat>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+                
+                <!-- Action Step Details Table -->
+                <table class="details-table">
+                    <thead>
+                        <tr>
+                            <th class="col-action-step">Action Step</th>
+                            <th class="col-description">Description</th>
+                            <th class="col-frequency">Frequency</th>
+                            <th class="col-methodology">Methodology</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <apex:repeat value="{!outcome.rows}" var="row">
+                            <tr>
+                                <td class="col-action-step">{!row.actionStepName}</td>
+                                <td class="col-description">{!row.description}</td>
+                                <td class="col-frequency">{!row.frequency}</td>
+                                <td class="col-methodology">{!row.methodology}</td>
+                            </tr>
+                        </apex:repeat>
+                    </tbody>
+                </table>
+                
+            </apex:repeat>
+        </body>
+    </html>
+    
+</apex:page>

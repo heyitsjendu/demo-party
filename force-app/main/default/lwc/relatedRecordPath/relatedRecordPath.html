@@ -1,0 +1,69 @@
+<template>
+    <lightning-card>
+        <h3 slot="title">
+            <lightning-icon icon-name="standard:calibration" size="small"></lightning-icon>
+            <span class="slds-p-left_small">{pathTitle}</span>
+        </h3>
+        
+        <template if:true={isLoading}>
+            <div class="slds-p-around_medium">
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={errorMessage}>
+            <div class="slds-p-around_medium">
+                <div class="slds-text-color_error">{errorMessage}</div>
+            </div>
+        </template>
+
+        <template if:true={showPath}>
+            <div class="slds-path">
+                <div class="slds-path__track">
+                    <div class="slds-path__scroller-container">
+                        <div class="slds-path__scroller" role="application">
+                            <div class="slds-path__scroller_inner">
+                                <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                                    <template for:each={pathStages} for:item="stage">
+                                        <li key={stage.value} 
+                                            class={stage.className} 
+                                            role="presentation">
+                                            <a class="slds-path__link" 
+                                               role="option" 
+                                               tabindex="-1"
+                                               data-value={stage.value}
+                                               onclick={handleStageClick}>
+                                                <span class="slds-path__stage">
+                                                    <span class="slds-path__title">{stage.label}</span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <template if:true={currentStageInfo}>
+                    <div class="slds-path__coach">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-p-around_medium">
+                                <h2 class="slds-text-heading_small slds-m-bottom_small">
+                                    {currentStageInfo.label}
+                                </h2>
+                                <template if:true={relatedRecordUrl}>
+                                    <lightning-button 
+                                        label="View Clinical Service Request" 
+                                        onclick={navigateToRecord}
+                                        variant="brand">
+                                    </lightning-button>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

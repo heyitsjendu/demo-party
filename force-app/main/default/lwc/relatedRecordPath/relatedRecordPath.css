@@ -1,0 +1,54 @@
+/* Make path responsive and fit container width */
+.slds-path {
+    width: 100%;
+}
+
+.slds-path__track {
+    display: block;
+    width: 100%;
+}
+
+.slds-path__scroller-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.slds-path__scroller {
+    display: block;
+    width: 100%;
+}
+
+.slds-path__scroller_inner {
+    display: flex;
+    width: 100%;
+}
+
+.slds-path__nav {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.slds-path__item {
+    flex: 1 1 0%;
+    min-width: 0;
+}
+
+/* Cursor styles */
+.slds-path__item.slds-is-complete .slds-path__link {
+    cursor: pointer;
+}
+
+.slds-path__item.slds-is-incomplete .slds-path__link {
+    cursor: pointer;
+}
+
+.slds-path__item.slds-is-current .slds-path__link {
+    cursor: default;
+}
+
+.slds-path__coach {
+    background-color: #f3f2f2;
+    border-top: 1px solid #dddbda;
+}

@@ -1,0 +1,523 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>New Customer Registration - Glidewell</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #fff;
+        }
+        
+        /* Top Bar */
+        .top-bar {
+            background-color: #fff;
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 13px;
+        }
+        
+        .top-bar-left {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            color: #666;
+        }
+        
+        .top-bar-left a {
+            color: #666;
+            text-decoration: none;
+        }
+        
+        .top-bar-right {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-sign-in {
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 13px;
+            cursor: pointer;
+            padding: 6px 12px;
+            font-weight: 600;
+        }
+        
+        .btn-new-customer {
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #fff;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 45px;
+            width: auto;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .btn-send-case {
+            background-color: #e31e24;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            width: 180px;
+            background: white;
+        }
+        
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 13px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: #f5f5f5;
+            padding: 40px 40px;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .hero-content {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .hero h1 {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+            font-size: 42px;
+            font-weight: 200;
+            margin-bottom: 25px;
+            color: #333;
+            line-height: 1.2;
+            position: relative;
+        }
+        
+        .hero h1::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 0;
+            height: 100%;
+            width: 6px;
+            background-color: #e31e24;
+        }
+        
+        .hero p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .hero-image-container {
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .btn-signup {
+            background-color: #e31e24;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 0.5px;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-signup:hover {
+            background-color: #c71a1f;
+        }
+        
+        /* Features Section */
+        .features {
+            background-color: #fff;
+            padding: 80px 40px;
+        }
+        
+        .features-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 80px;
+            color: #333;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+        }
+        
+        .feature-card {
+            text-align: center;
+        }
+        
+        .feature-icon {
+            width: 120px;
+            height: 120px;
+            background-color: #d9eef7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+        }
+        
+        .feature-icon img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .feature-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #666;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #f5f5f5;
+            padding: 40px 40px 20px 40px;
+            margin-top: 0;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #e31e24;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-logo-icon {
+            width: 35px;
+            height: 35px;
+            background-color: #e31e24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .footer-logo-text {
+            font-size: 22px;
+            color: #999;
+            font-weight: 300;
+        }
+        
+        .footer-info {
+            font-size: 12px;
+            color: #666;
+            text-align: right;
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-image-container {
+                order: -1;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header, .top-bar {
+                padding: 20px;
+            }
+            
+            .nav {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <span>&#128222; 800-854-7256 USA</span>
+            <a href="#">Website Accessibility Assistance</a>
+            <span>|</span>
+            <a href="#">Implant Library</a>
+        </div>
+        <div class="top-bar-right">
+            <button class="btn-sign-in">SIGN IN</button>
+            <button class="btn-new-customer">NEW CUSTOMER</button>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <div class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="{!$Resource.GlidewellLogo}" alt="Glidewell"/>
+            </div>
+            <div class="nav">
+                <a href="#">SOLUTIONS</a>
+                <a href="#">EDUCATION</a>
+                <a href="#">COMPANY</a>
+                <button class="btn-send-case">SEND CASE</button>
+                <div class="search-box">
+                    <input type="text" placeholder="Search"/>
+                    <span>&#128269;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Why Choose Glidewell?</h1>
+                <p>For over 50 years, Glidewell has partnered with clinicians, offering predictable restorations, premium materials, education and cutting-edge technology.</p>
+                <p>Create your Glidewell My Account today and get access to our online suite of tools to help you streamline your practice, along with some first-time member discounts.</p>
+                <a href="https://storm-147e709ca87d10--c.vf.force.com/apex/CustomerFormSignupGlidewell" class="btn-signup">SIGN UP NOW</a>
+            </div>
+            <div class="hero-image-container">
+                <img src="{!$Resource.DentalTeamImage}" alt="Dental Team"/>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Features Section -->
+    <div class="features">
+        <div class="features-content">
+            <h2>What our Lab Brings To You</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="{!$Resource.lightbulb}" alt="Knowledgeable Staff"/>
+                    </div>
+                    <h3>Knowledgeable Staff</h3>
+                    <p>All Glidewell staff, from our technicians to our customer service representatives, receive extensive, world-class training to better serve you.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="{!$Resource.chatbubbles}" alt="Reliable Service"/>
+                    </div>
+                    <h3>Reliable Service</h3>
+                    <p>At Glidewell, we work while other labs are sleeping. When you have a case that absolutely needs to get done on time, you can count on us to deliver.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="{!$Resource.tooth}" alt="Ease of Use"/>
+                    </div>
+                    <h3>Ease of Use</h3>
+                    <p>Glidewell makes your experience easy by streamlining tasks like paying invoices, scheduling pickups, managing your cases and connecting with your representative.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Solutions</h3>
+                <ul>
+                    <li><a href="#">Crown &amp; Bridge</a></li>
+                    <li><a href="#">Implant Solutions</a></li>
+                    <li><a href="#">Removables</a></li>
+                    <li><a href="#">Digital Dentistry</a></li>
+                    <li><a href="#">Clinical &amp; Lab Products</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Orders</h3>
+                <ul>
+                    <li><a href="#">Sending a Case</a></li>
+                    <li><a href="#">Shipping Supplies</a></li>
+                    <li><a href="#">Payment Info</a></li>
+                    <li><a href="#">Warranty</a></li>
+                    <li><a href="#">My Account</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Resource Hub</a></li>
+                    <li><a href="#">Continuing Education</a></li>
+                    <li><a href="#">Clinical Videos</a></li>
+                    <li><a href="#">Published Articles</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Glidewell</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">My Account</a></li>
+                    <li><a href="#">Glidewell TV</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Job Opportunities</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-logo">
+                <div class="footer-logo-icon">G</div>
+                <span class="footer-logo-text">Glidewell</span>
+            </div>
+            <div class="footer-info">
+                2201 Dupont Dr., Irvine, CA 92612<br/>
+                &copy; 2025 Glidewell. All rights reserved.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+</apex:page>

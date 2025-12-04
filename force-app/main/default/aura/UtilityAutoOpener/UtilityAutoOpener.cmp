@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:utilityBarAPI aura:id="utilityBar"/>
+</aura:component>

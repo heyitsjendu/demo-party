@@ -1,0 +1,4 @@
+/* This targets the utility bar item that hosts your LWC and hides it */
+li[data-id="c_dF25_Conversation_Simulator"] {
+    display: none !important;
+}

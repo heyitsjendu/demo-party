@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>API Progress Bar</masterLabel>
+    <description>A visual progress indicator for API calls showing 5 steps with animated circles and checkmarks</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <!-- Configuration for Flow Screens (with output properties) -->
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="step1Label" type="String" label="Step 1 Label"
+                      description="Label for the first step"
+                      default="Connecting to External System"/>
+            <property name="step2Label" type="String" label="Step 2 Label"
+                      description="Label for the second step"
+                      default="Locating Patient"/>
+            <property name="step3Label" type="String" label="Step 3 Label"
+                      description="Label for the third step"
+                      default="Querying Appointment Records"/>
+            <property name="step4Label" type="String" label="Step 4 Label"
+                      description="Label for the fourth step"
+                      default="Returning Results"/>
+            <property name="step5Label" type="String" label="Step 5 Label"
+                      description="Label for the fifth step"
+                      default="Updating Salesforce"/>
+            <property name="stepDuration" type="Integer" label="Step Duration (milliseconds)"
+                      description="Time in milliseconds between each step completion"
+                      default="2000"/>
+            <property name="autoStart" type="Boolean" label="Auto Start"
+                      description="Automatically start the progress when component loads"
+                      default="false"/>
+            <property name="buttonColor" type="String" label="Button Background Color"
+                      description="Background color for the buttons (e.g., #007c7c)"
+                      default="#007c7c"/>
+            <property name="buttonTextColor" type="String" label="Button Text Color"
+                      description="Text color for the buttons (e.g., #ffffff)"
+                      default="#ffffff"/>
+            <property name="hideManualButton" type="Boolean" label="Hide Manual Button"
+                      description="Check to hide the Verify Benefits Manually button"
+                      default="false"/>
+            <property name="hideApiButton" type="Boolean" label="Hide API Button"
+                      description="Check to hide the Verify Benefits via API button"
+                      default="false"/>
+            <property name="manualButtonLabel" type="String" label="Manual Button Text"
+                      description="Text to display on the manual verification button"
+                      default="Verify Benefits Manually"/>
+            <property name="apiButtonLabel" type="String" label="API Button Text"
+                      description="Text to display on the API verification button"
+                      default="Verify Benefits via API"/>
+            <property name="completionMessage" type="String" label="Completion Message"
+                      description="Message to display when progress is complete"
+                      default="In-Network. Pre-authorization required."/>
+
+            <!-- Output Properties for Flows -->
+            <property name="verificationMethod" type="String" label="Verification Method"
+                      role="outputOnly"
+                      description="Returns 'manual' or 'API' based on which button was clicked"/>
+            <property name="isProgressComplete" type="Boolean" label="Is Progress Complete"
+                      role="outputOnly"
+                      description="Returns true when all steps are complete"/>
+            <property name="completionTimestamp" type="String" label="Completion Timestamp"
+                      role="outputOnly"
+                      description="Returns the ISO timestamp when progress completed"/>
+        </targetConfig>
+
+        <!-- Configuration for Lightning Pages (without output properties) -->
+        <targetConfig targets="lightning__AppPage,lightning__RecordPage,lightning__HomePage">
+            <property name="step1Label" type="String" label="Step 1 Label"
+                      description="Label for the first step"
+                      default="Connecting to External System"/>
+            <property name="step2Label" type="String" label="Step 2 Label"
+                      description="Label for the second step"
+                      default="Locating Patient"/>
+            <property name="step3Label" type="String" label="Step 3 Label"
+                      description="Label for the third step"
+                      default="Querying Appointment Records"/>
+            <property name="step4Label" type="String" label="Step 4 Label"
+                      description="Label for the fourth step"
+                      default="Returning Results"/>
+            <property name="step5Label" type="String" label="Step 5 Label"
+                      description="Label for the fifth step"
+                      default="Updating Salesforce"/>
+            <property name="stepDuration" type="Integer" label="Step Duration (milliseconds)"
+                      description="Time in milliseconds between each step completion"
+                      default="2000"/>
+            <property name="autoStart" type="Boolean" label="Auto Start"
+                      description="Automatically start the progress when component loads"
+                      default="false"/>
+            <property name="buttonColor" type="String" label="Button Background Color"
+                      description="Background color for the buttons (e.g., #007c7c)"
+                      default="#007c7c"/>
+            <property name="buttonTextColor" type="String" label="Button Text Color"
+                      description="Text color for the buttons (e.g., #ffffff)"
+                      default="#ffffff"/>
+            <property name="hideManualButton" type="Boolean" label="Hide Manual Button"
+                      description="Check to hide the Verify Benefits Manually button"
+                      default="false"/>
+            <property name="hideApiButton" type="Boolean" label="Hide API Button"
+                      description="Check to hide the Verify Benefits via API button"
+                      default="false"/>
+            <property name="manualButtonLabel" type="String" label="Manual Button Text"
+                      description="Text to display on the manual verification button"
+                      default="Verify Benefits Manually"/>
+            <property name="apiButtonLabel" type="String" label="API Button Text"
+                      description="Text to display on the API verification button"
+                      default="Verify Benefits via API"/>
+            <property name="completionMessage" type="String" label="Completion Message"
+                      description="Message to display when progress is complete"
+                      default="In-Network. Pre-authorization required."/>
+            <property name="updateRecordOnComplete" type="Boolean" label="Update Record on Completion"
+                      description="Check to update a field on the record when progress completes"
+                      default="false"/>
+            <property name="fieldApiName" type="String" label="Field API Name"
+                      description="API name of the field to update (e.g., Status__c, IsVerified__c)"/>
+            <property name="fieldValue" type="String" label="Field Value"
+                      description="Value to set (e.g., true, false, Completed, 100)"/>
+            <property name="showAsCard" type="Boolean" label="Show as Card"
+                      description="Display the component inside a Lightning card with a title"
+                      default="false"/>
+            <property name="cardTitle" type="String" label="Card Title"
+                      description="Title to display on the card (only used when Show as Card is enabled)"
+                      default="Verification Progress"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

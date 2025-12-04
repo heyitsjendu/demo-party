@@ -1,0 +1,110 @@
+.verification-container {
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+}
+
+.section-header {
+    margin-bottom: 12px;
+}
+
+.required-section {
+    margin-bottom: 24px;
+}
+
+.optional-section {
+    margin-top: 24px;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: #080707;
+}
+
+.section-subtitle {
+    font-size: 12px;
+    color: #706e6b;
+    margin: 0;
+}
+
+.verification-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background: white;
+    border: 1px solid #c9c7c5;
+    border-radius: 4px;
+}
+
+.required-field {
+    border: 1px solid #c9c7c5;
+}
+
+.field-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.field-label {
+    font-size: 12px;
+    color: #080707;
+    font-weight: 400;
+}
+
+.required-indicator {
+    color: #fe5000;
+    font-weight: 600;
+}
+
+.field-value {
+    font-size: 14px;
+    color: #080707;
+    font-weight: 400;
+}
+
+.button-group {
+    display: flex;
+    gap: 8px;
+    margin-left: 16px;
+}
+
+.verify-button,
+.reject-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid #c9c7c5;
+    background: white;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.verify-button:hover {
+    background: #ecfaec;
+    border-color: #2e844a;
+}
+
+.verify-button.active {
+    background: #2e844a;
+    border-color: #2e844a;
+    color: white;
+}
+
+.reject-button:hover {
+    background: #fef0f0;
+    border-color: #c23934;
+}
+
+.reject-button.active {
+    background: #c23934;
+    border-color: #c23934;
+    color: white;
+}

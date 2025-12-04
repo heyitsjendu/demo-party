@@ -1,0 +1,644 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
+    <title>New Customer Form - Glidewell</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        /* Top Bar */
+        .top-bar {
+            background-color: #fff;
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 13px;
+        }
+        
+        .top-bar-left {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            color: #666;
+        }
+        
+        .top-bar-left a {
+            color: #666;
+            text-decoration: none;
+        }
+        
+        .top-bar-right {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-sign-in {
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 13px;
+            cursor: pointer;
+            padding: 6px 12px;
+            font-weight: 600;
+        }
+        
+        .btn-new-customer {
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #fff;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background-color: #e31e24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            color: #999;
+            font-weight: 300;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .btn-send-case {
+            background-color: #e31e24;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            width: 180px;
+            background: white;
+        }
+        
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 13px;
+        }
+        
+        /* Page Title */
+        .page-title {
+            background-color: #f5f5f5;
+            padding: 30px 40px;
+            border-left: 6px solid #e31e24;
+            margin-bottom: 0;
+        }
+        
+        .page-title h1 {
+            font-size: 36px;
+            font-weight: 300;
+            color: #333;
+        }
+        
+        /* Content Area */
+        .content {
+            background-color: #fff;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .intro-text {
+            text-align: center;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        
+        /* Form Styles */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+        
+        .required {
+            color: #e31e24;
+            margin-left: 3px;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .form-group select {
+            background-color: white;
+            cursor: pointer;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .name-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .checkbox-group {
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group label {
+            display: flex;
+            align-items: flex-start;
+            font-weight: normal;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .checkbox-subtext {
+            display: block;
+            font-size: 13px;
+            color: #666;
+            margin-left: 24px;
+            margin-top: 5px;
+        }
+        
+        .submit-btn {
+            background-color: #e31e24;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            letter-spacing: 0.5px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #c71a1f;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #f5f5f5;
+            padding: 40px 40px 20px 40px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #e31e24;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-logo-icon {
+            width: 35px;
+            height: 35px;
+            background-color: #e31e24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .footer-logo-text {
+            font-size: 22px;
+            color: #999;
+            font-weight: 300;
+        }
+        
+        .footer-info {
+            font-size: 12px;
+            color: #666;
+            text-align: right;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header, .top-bar, .content, .footer {
+                padding: 20px;
+            }
+            
+            .nav {
+                display: none;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .name-fields {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <span>📞 800-854-7256 USA</span>
+            <a href="#">Website Accessibility Assistance</a>
+            <span>|</span>
+            <a href="#">Implant Library</a>
+        </div>
+        <div class="top-bar-right">
+            <button class="btn-sign-in">SIGN IN</button>
+            <button class="btn-new-customer">NEW CUSTOMER</button>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">G</div>
+            <span class="logo-text">Glidewell</span>
+        </div>
+        <div class="nav">
+            <a href="#">SOLUTIONS</a>
+            <a href="#">EDUCATION</a>
+            <a href="#">COMPANY</a>
+            <button class="btn-send-case">SEND CASE</button>
+            <div class="search-box">
+                <input type="text" placeholder="Search"/>
+                <span>🔍</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Page Title -->
+    <div class="page-title">
+        <h1>New Customer Form</h1>
+    </div>
+    
+    <!-- Content -->
+    <div class="content">
+        <div class="intro-text">
+            Interested in receiving exclusive pricing offers from Glidewell?<br/>
+            Simply complete this form and we'll send you an email filled with special savings.
+        </div>
+        
+        <!-- Form Container -->
+        <div class="form-container">
+            <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&amp;orgId=00DKY000009n243" method="POST">
+                <input type="hidden" name="oid" value="00DKY000009n243"/>
+                <input type="hidden" name="retURL" value="https://storm-147e709ca87d10--c.vf.force.com/apex/CustomerFormConfirmation_Glidewell"/>
+                <input type="hidden" name="lead_source" value="New Customer Form"/>
+                
+                <!-- Specialty -->
+                <div class="form-group">
+                    <label for="00NKY00000Yftty">Specialty:<span class="required">*</span></label>
+                    <select id="00NKY00000Yftty" name="00NKY00000Yftty" required="required">
+                        <option value="">Please Select from the Dropdown</option>
+                        <option value="General Dentistry">General Dentistry</option>
+                        <option value="Prosthodontics">Prosthodontics</option>
+                        <option value="Orthodontics">Orthodontics</option>
+                        <option value="Oral Surgery">Oral Surgery</option>
+                        <option value="Periodontics">Periodontics</option>
+                        <option value="Endodontics">Endodontics</option>
+                        <option value="Pediatric Dentistry">Pediatric Dentistry</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <!-- Doctor Name -->
+                <div class="form-group">
+                    <label>Doctor Name:<span class="required">*</span></label>
+                    <div class="name-fields">
+                        <div>
+                            <input type="text" id="first_name" name="first_name" maxlength="40" placeholder="First Name" required="required"/>
+                        </div>
+                        <div>
+                            <input type="text" id="last_name" name="last_name" maxlength="80" placeholder="Last Name" required="required"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email:<span class="required">*</span></label>
+                    <input type="email" id="email" name="email" maxlength="80" placeholder="ex. name@example.com" required="required"/>
+                </div>
+                
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label for="phone">Phone Number:<span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" maxlength="40" placeholder="(123)456-7890)" required="required"/>
+                </div>
+                
+                <!-- Practice Name -->
+                <div class="form-group">
+                    <label for="company">Practice Name:<span class="required">*</span></label>
+                    <input type="text" id="company" name="company" maxlength="40" placeholder="Practice Name" required="required"/>
+                </div>
+                
+                <!-- License Number -->
+                <div class="form-group">
+                    <label for="00NKY00000Yfttn">License Number:</label>
+                    <input type="text" id="00NKY00000Yfttn" name="00NKY00000Yfttn" maxlength="255" placeholder=""/>
+                </div>
+                
+                <!-- License State -->
+                <div class="form-group">
+                    <label for="00NKY00000YftuH">License State:</label>
+                    <select id="00NKY00000YftuH" name="00NKY00000YftuH">
+                        <option value="">Please Select a State</option>
+                        <option value="AL">AL - Alabama</option>
+                        <option value="AK">AK - Alaska</option>
+                        <option value="AZ">AZ - Arizona</option>
+                        <option value="AR">AR - Arkansas</option>
+                        <option value="CA">CA - California</option>
+                        <option value="CO">CO - Colorado</option>
+                        <option value="CT">CT - Connecticut</option>
+                        <option value="DE">DE - Delaware</option>
+                        <option value="FL">FL - Florida</option>
+                        <option value="GA">GA - Georgia</option>
+                        <option value="HI">HI - Hawaii</option>
+                        <option value="ID">ID - Idaho</option>
+                        <option value="IL">IL - Illinois</option>
+                        <option value="IN">IN - Indiana</option>
+                        <option value="IA">IA - Iowa</option>
+                        <option value="KS">KS - Kansas</option>
+                        <option value="KY">KY - Kentucky</option>
+                        <option value="LA">LA - Louisiana</option>
+                        <option value="ME">ME - Maine</option>
+                        <option value="MD">MD - Maryland</option>
+                        <option value="MA">MA - Massachusetts</option>
+                        <option value="MI">MI - Michigan</option>
+                        <option value="MN">MN - Minnesota</option>
+                        <option value="MS">MS - Mississippi</option>
+                        <option value="MO">MO - Missouri</option>
+                        <option value="MT">MT - Montana</option>
+                        <option value="NE">NE - Nebraska</option>
+                        <option value="NV">NV - Nevada</option>
+                        <option value="NH">NH - New Hampshire</option>
+                        <option value="NJ">NJ - New Jersey</option>
+                        <option value="NM">NM - New Mexico</option>
+                        <option value="NY">NY - New York</option>
+                        <option value="NC">NC - North Carolina</option>
+                        <option value="ND">ND - North Dakota</option>
+                        <option value="OH">OH - Ohio</option>
+                        <option value="OK">OK - Oklahoma</option>
+                        <option value="OR">OR - Oregon</option>
+                        <option value="PA">PA - Pennsylvania</option>
+                        <option value="RI">RI - Rhode Island</option>
+                        <option value="SC">SC - South Carolina</option>
+                        <option value="SD">SD - South Dakota</option>
+                        <option value="TN">TN - Tennessee</option>
+                        <option value="TX">TX - Texas</option>
+                        <option value="UT">UT - Utah</option>
+                        <option value="VT">VT - Vermont</option>
+                        <option value="VA">VA - Virginia</option>
+                        <option value="WA">WA - Washington</option>
+                        <option value="WV">WV - West Virginia</option>
+                        <option value="WI">WI - Wisconsin</option>
+                        <option value="WY">WY - Wyoming</option>
+                        <option value="DC">DC - District of Columbia</option>
+                    </select>
+                </div>
+                
+                <!-- Primary Office Contact -->
+                <div class="form-group">
+                    <label for="00NKY00000Yftu2">Primary Office Contact:</label>
+                    <input type="text" id="00NKY00000Yftu2" name="00NKY00000Yftu2" maxlength="255" placeholder="Full Name"/>
+                </div>
+                
+                <!-- Need Supplies -->
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="00NKY00000Yfttd" name="00NKY00000Yfttd" value="1"/>
+                        <span>Need Supplies?</span>
+                    </label>
+                    <span class="checkbox-subtext">Yes, send me Rx forms, prepaid shipping labels and case boxes.</span>
+                </div>
+                
+                <!-- Case to Ship Now -->
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="00NKY00000Yftti" name="00NKY00000Yftti" value="1"/>
+                        <span>Do you have a case to ship now?</span>
+                    </label>
+                    <span class="checkbox-subtext">Yes, I have a case to ship now.<br/>(a customer service representative will contact you shortly)</span>
+                </div>
+                
+                <!-- Fee Schedule -->
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="00NKY00000Yftts" name="00NKY00000Yftts" value="1"/>
+                        <span>Would you like a fee schedule?</span>
+                    </label>
+                    <span class="checkbox-subtext">Yes, I would like a fee schedule.</span>
+                </div>
+                
+                <!-- Sign-up for Future Offers -->
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="00NKY00000Yfttx" name="00NKY00000Yfttx" value="1"/>
+                        <span>Would you like to sign up for future Glidewell Dental offers?</span>
+                    </label>
+                    <span class="checkbox-subtext">Yes, I would like to receive offers.</span>
+                </div>
+                
+                <!-- Comments -->
+                <div class="form-group">
+                    <label for="description">Comments:</label>
+                    <textarea id="description" name="description" placeholder="If you have any additional questions..."></textarea>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn">RECEIVE OFFER</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Solutions</h3>
+                <ul>
+                    <li><a href="#">Crown &amp; Bridge</a></li>
+                    <li><a href="#">Implant Solutions</a></li>
+                    <li><a href="#">Removables</a></li>
+                    <li><a href="#">Digital Dentistry</a></li>
+                    <li><a href="#">Clinical &amp; Lab Products</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Orders</h3>
+                <ul>
+                    <li><a href="#">Sending a Case</a></li>
+                    <li><a href="#">Shipping Supplies</a></li>
+                    <li><a href="#">Payment Info</a></li>
+                    <li><a href="#">Warranty</a></li>
+                    <li><a href="#">My Account</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Resource Hub</a></li>
+                    <li><a href="#">Continuing Education</a></li>
+                    <li><a href="#">Clinical Videos</a></li>
+                    <li><a href="#">Published Articles</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Glidewell</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">My Account</a></li>
+                    <li><a href="#">Glidewell TV</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Job Opportunities</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-logo">
+                <div class="footer-logo-icon">G</div>
+                <span class="footer-logo-text">Glidewell</span>
+            </div>
+            <div class="footer-info">
+                2201 Dupont Dr., Irvine, CA 92612<br/>
+                © 2025 Glidewell. All rights reserved.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+</apex:page>

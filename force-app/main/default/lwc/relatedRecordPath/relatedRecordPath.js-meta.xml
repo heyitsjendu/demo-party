@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="relatedObjectApiName" 
+                      type="String" 
+                      default="ClinicalServiceRequest" 
+                      label="Related Object API Name"
+                      description="API name of the related object (e.g., ClinicalServiceRequest)"/>
+            <property name="lookupFieldApiName" 
+                      type="String" 
+                      default="Account__c" 
+                      label="Lookup Field API Name"
+                      description="API name of the lookup field on the related object that points to the current record's object (e.g., Account__c)"/>
+            <property name="stageFieldApiName" 
+                      type="String" 
+                      default="Stage__c" 
+                      label="Stage Field API Name"
+                      description="API name of the picklist field to display as a path (e.g., Stage__c)"/>
+            <property name="pathTitle" 
+                      type="String" 
+                      default="Clinical Service Request Status" 
+                      label="Path Title"
+                      description="Title to display above the path"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

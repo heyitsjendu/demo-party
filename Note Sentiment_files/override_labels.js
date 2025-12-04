@@ -1,0 +1,1 @@
+"use strict";"undefined"===typeof Aura&&(window.Aura={});(function(){function init(){$A.bootstrapLabelValueProvider({}, !0)}if(Aura.frameworkJsReady){Aura.overriddenLabelsReady||init()}else{(Aura.beforeFrameworkInit=Aura.beforeFrameworkInit||[],Aura.beforeFrameworkInit.push(init))}Aura.overriddenLabelsReady=!0})();

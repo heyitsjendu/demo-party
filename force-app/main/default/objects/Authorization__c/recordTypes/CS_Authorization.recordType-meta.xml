@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CS_Authorization</fullName>
+    <active>true</active>
+    <description>Community Support</description>
+    <label>CS Authorization</label>
+    <picklistValues>
+        <picklist>AuthorizationType__c</picklist>
+        <values>
+            <fullName>Agency</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agency with Choice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Daycare - Respite</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FMS Daycare</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FMS Respite</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FMS Transportation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Homemaker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Independent Living Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PDS PA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PIP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Care and Homemaker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Respite</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social Recreation Coaching</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specialized Respite</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specialized Supervision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ServiceModel__c</picklist>
+        <values>
+            <fullName>AWC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Agency</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Active</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending Authorization</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>UnitsType__c</picklist>
+        <values>
+            <fullName>Hourly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quarter Hourly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

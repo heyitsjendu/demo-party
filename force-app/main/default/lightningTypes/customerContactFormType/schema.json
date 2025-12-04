@@ -1,0 +1,5 @@
+{
+  "title": "Customer Contact Form",
+  "description": "Collects customer contact information within an Agentforce conversation.",
+  "lightning:type": "@apexClassType/c__CustomerContactForm"
+}

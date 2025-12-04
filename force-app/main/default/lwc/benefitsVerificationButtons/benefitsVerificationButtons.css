@@ -1,0 +1,32 @@
+.button-container {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.verify-button {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #007c7c;
+    color: white;
+    min-width: 200px;
+}
+
+.verify-button:hover {
+    background-color: #006363;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.verify-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,387 @@
+<!--New VF page to use in tab-->
+
+
+<apex:page controller="AgentforceController" lightningStylesheets="true">
+    
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden;
+        }
+
+       body {
+            font-family: 'Salesforce Sans', Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        } 
+
+        .page-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0; 
+            display: flex;
+            flex-direction: column;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .bodyDiv, .noSidebarCell {
+             margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .nav-bar {
+          background: #fff;
+          border-bottom: 1px solid #dddbda;
+          display: flex;
+          align-items: center;
+          padding: 0 12px;
+          margin-bottom: 24px;
+        }
+        
+        .nav-bar ul {
+          display: flex;
+          gap: 48px; /* space between cells */
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        
+        .nav-bar li {
+          padding: 0 16px; /* horizontal cell padding */
+          border-bottom: 3px solid transparent; /* default invisible underline */
+        }
+        
+        .nav-bar li.active {
+          border-bottom: 3px solid #181818; /* underline spans full cell */
+        }
+        
+        .nav-link {
+          display: block;
+          color: #706e6b;
+          text-decoration: none; /* remove browser underline */
+          font-size: 16px;
+          font-weight: 400;
+          padding: 8px 0; /* vertical spacing */
+          line-height: 1.2;
+        }
+        
+        .nav-link.active {
+          font-weight: 600; /* bold active text */
+          color: #181818;
+        }
+
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #dddbda;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-title-text {
+        font-size: 22px;    
+        font-weight: 400;
+        color: #706e6b;
+        margin: 0;
+        }
+
+        .slds-icon { 
+        fill: #706e6b;         
+        }
+        
+        .slds-media__figure img { display:block; }
+        .slds-page-header__title { line-height:1.2; }
+
+
+    /*    .header-icon {. *** Removed the old gray square
+            background: #706e6b;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-icon lightning-icon {
+            --slds-c-icon-color-foreground-default: white;
+        } */
+
+
+
+    /*    .header h1 {.  *** Removed this in place of the .header-title-text
+            font-size: 22px;
+            font-weight: 300;
+            color: #706e6b;
+            margin: 0;
+        } */
+
+        .settings-btn {
+            background: none;
+            border: 1px solid #dddbda;
+            border-radius: 4px;
+            padding: 6px 10px;
+            cursor: pointer;
+        }
+
+        .metrics {
+            display: flex;
+            gap: 12px;
+            padding: 24px;
+        }
+
+        .metric-card {
+            background: #fff;
+            border: 1px solid #dddbda;
+            border-radius: 8px;
+            flex: 1;
+            text-align: center;
+            padding: 16px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+            aspect-ratio: 2 / 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 200px;
+        }
+
+        .metric-card.active {
+            border: 2px solid  /* #0176d3; */
+        }
+
+        .metric-number {
+            font-size: 32px;
+            font-weight: 600;
+            color: #181818;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: #706e6b;
+        }
+
+        .table-container {
+            background: #fff;
+            border: 1px solid #dddbda;
+            border-radius: 8px;
+            margin: 0 24px 24px 24px;
+            overflow-y: auto;
+        }
+
+        .table-header,
+        .table-row {
+            display: flex;
+            border-bottom: 1px solid #f3f3f3;
+        }
+
+        .table-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dddbda;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #706e6b;
+        }
+
+     /*   .table-footer {.  **** if you want a footer on the table. I thought it would look better, but I don't think it does. Your call!
+            background-color: #f8f9fa;
+            border-top: 1px solid #dddbda; 
+            color: #706e6b;
+            display: flex;
+
+        }
+
+        .table-footer .table-cell,
+        .table-header .table-cell {
+        padding: 14px 16px;
+        }
+     */
+
+        .table-cell {
+            flex: 1;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            color: #706e6b;
+        }
+
+        .table-cell.name {
+            flex: 2;
+        }
+
+        .table-cell.summary {
+            flex: 3; 
+            flex-direction: column;   
+            align-items: flex-start;  
+            justify-content: center; 
+        }
+
+        .table-cell.length {
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .conversation-title {
+           /* font-weight: 600; */
+            color: #706e6b;        
+        }
+
+        .conversation-details {
+            font-size: 13px;
+            color: #706e6b;
+        }
+
+        .monitor-action {
+            color: #706e6b;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+        }
+       
+        #lightningContainer {
+            position: fixed;
+            bottom: 0;
+            right: 24px;
+            width: 480px;  
+            height: 600px; 
+            display: none;
+            z-index: 99;
+        }
+        
+                /* Header title row: icon + text on one line */
+        .af-title-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;              /* space between icon and text */
+        }
+        
+        /* exact icon size and no baseline gap */
+        .af-title-row .af-icon {
+          width: 24px;
+          height: 24px;
+          display: block;
+        }
+        
+        /* keep size, reduce bold, avoid extra vertical space */
+        .af-title-row .af-title {
+          font-size: 22px;
+          font-weight: 400;
+          color: #032d60;        /* or #706e6b if you prefer */
+          line-height: 1;        /* prevents text from pushing the row taller */
+          margin: 0;
+        }
+    </style>
+
+    <!-- Navigation -->
+    <div class="page-wrapper">
+        <nav class="nav-bar">
+            <ul>
+              <li><a href="#" class="nav-link">Wallboard</a></li>
+              <li><a href="#" class="nav-link">Service Reps</a></li>
+              <li><a href="#" class="nav-link">Queues Backlog</a></li>
+              <li><a href="#" class="nav-link">In-Progress Work</a></li>
+              <li class="active"><a href="#" class="nav-link">Agentforce</a></li>
+              <li><a href="#" class="nav-link">Reports</a></li>
+            </ul>
+    </nav>
+
+    <!-- Header -->
+<div class="slds-page-header slds-p-vertical_small">
+  <div class="slds-page-header__row">
+    <div class="slds-page-header__col-title">
+      <div class="af-title-row">
+        <img
+          src="{!URLFOR($Resource.agent_astro)}"
+          alt="Agentforce Icon"
+          class="af-icon"
+        />
+        <span class="af-title">Agentforce</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Metrics Section -->
+    <div class="metrics">
+        <div class="metric-card active">
+            <div class="metric-number">{!totalAgents}</div>
+            <div class="metric-label">All Agentforce<br/>Agents</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-number">{!sousChefCount}</div>
+            <div class="metric-label">Sous Chef</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-number">{!williamsCount}</div>
+            <div class="metric-label">Williams Sonoma<br/>Service Agent</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-number">{!westElmCount}</div>
+            <div class="metric-label">West Elm Agent</div>
+        </div>
+    </div>
+
+    <!-- Conversations Table -->
+
+    <div class="table-container">
+        <div class="table-header">
+            <div class="table-cell name">Name</div>
+            <div class="table-cell">Flag</div>
+            <div class="table-cell">Action</div>
+            <div class="table-cell summary">Conversation Summary</div>
+            <div class="table-cell length">Conversation Length</div>
+        </div> 
+
+        <apex:repeat value="{!conversations}" var="conv">
+            <div class="table-row">
+                <div class="table-cell name">{!conv.agentName}</div>
+                <div class="table-cell">{!conv.flag}</div>
+                <div class="table-cell">
+                <span class="monitor-action" onclick="openDemoPanel()">Monitor</span>
+                </div>
+                <div class="table-cell summary">
+                    <div class="conversation-title">{!conv.title}</div>
+                    <div class="conversation-details">{!conv.details}</div>
+                </div>
+                <div class="table-cell length">{!conv.length}</div>
+            </div>
+        </apex:repeat>
+      <!-- <div class="table-footer">.   **** Footer row *** 
+            <div class="table-cell name"></div>
+            <div class="table-cell"></div>
+            <div class="table-cell"></div>
+            <div class="table-cell summary"></div>
+            <div class="table-cell length"></div>
+            </div>. --> 
+    </div>
+</div>
+
+    <!-- Lightning Container -->
+    <div id="lightningContainer"></div>
+
+<script>
+    function openDemoPanel() {
+        window.top.postMessage({ type: 'OPEN_CONVO_DEMO' }, '*');
+    }
+    </script>
+</apex:page>

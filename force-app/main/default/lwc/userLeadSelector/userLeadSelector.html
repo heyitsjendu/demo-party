@@ -1,0 +1,99 @@
+<template>
+    <div class="main-container">
+        
+        <template if:true={isLoading}>
+            <div class="slds-is-relative" style="height: 200px;">
+                <lightning-spinner alternative-text="Loading..." size="medium" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <div class="slds-notify slds-notify_alert slds-alert_error slds-theme_alert-texture slds-m-bottom_medium" role="alert">
+                <span class="slds-assistive-text">Error</span>
+                <h2>{errorMessage}</h2>
+            </div>
+        </template>
+
+        <template if:false={isLoading}>
+            <template if:false={error}>
+                
+                <div class="custom-grid">
+                    
+                    <div class="col-user">
+                        <div class="selection-panel">
+                            <div class="panel-header">
+                                <div class="header-title">
+                                    <lightning-icon icon-name="standard:user" size="small"></lightning-icon>
+                                    <span>Account Executives</span>
+                                </div>
+                            </div>
+                            
+                            <div class="user-list-container">
+                                <template for:each={userListWithFlags} for:item="user">
+                                    <div key={user.Id} 
+                                         class={user.tileClass} 
+                                         onclick={handleUserClick} 
+                                         data-id={user.Id}>
+                                        
+                                        <div class="avatar-circle">
+                                            <template if:true={user.SmallPhotoUrl}>
+                                                <img src={user.SmallPhotoUrl} alt={user.Name} class="avatar-img"/>
+                                            </template>
+                                            <template if:false={user.SmallPhotoUrl}>
+                                                {user.initials}
+                                            </template>
+                                        </div>
+                                        
+                                        <div class="user-info">
+                                            <div class="user-name">{user.Name}</div>
+                                        </div>
+                                        
+                                        <template if:true={user.isSelected}>
+                                            <lightning-icon icon-name="utility:check" size="xx-small" class="check-icon"></lightning-icon>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                   <div class="col-lead">
+    <div class="selection-panel selection-panel_leads">
+        <div class="panel-header panel-header_leads">
+            <div class="header-title header-title_leads">
+                <lightning-icon
+                    icon-name="standard:lead"
+                    size="small"
+                    class="header-icon_leads">
+                </lightning-icon>
+
+                <div class="header-title-text">
+                    <span class="header-title-main">Leads to Assign</span>
+                    <span class="header-title-sub">
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="datatable-wrapper datatable-wrapper_leads">
+            <lightning-datatable
+                key-field="Id"
+                data={leads}
+                columns={leadColumns}
+                selected-rows={selectedLeadRows}
+                onrowselection={handleLeadSelection}>
+            </lightning-datatable>
+        </div>
+
+        <div class="panel-footer panel-footer_leads">
+            {leadFooterText}
+        </div>
+    </div>
+</div>
+
+                </div>
+
+            </template>
+        </template>
+    </div>
+</template>

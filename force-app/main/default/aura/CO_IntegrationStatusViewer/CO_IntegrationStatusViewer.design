@@ -1,0 +1,53 @@
+<design:component>
+  <design:attribute
+    name="buttonIcon"
+    label="Button Icon"
+    placeholder="utility:sync"
+    required="true"
+    default="utility:sync"
+    description="Icon's reference https://www.lightningdesignsystem.com/icons/"
+  />
+  <design:attribute
+    name="intervalTime"
+    required="true"
+    label="Interval Time (ms)"
+    min="500"
+    placeholder="1000"
+    default="1000"
+    description="Milliseconds spent between each step"
+  />
+  <design:attribute
+    name="originalStepsWrapper"
+    label="Steps"
+    required="true"
+    description="Format is label|icon,label|icon"
+    placeholder="label|icon,label|icon"
+    default="Step 1|utility:success,Step 2|utility:success,Step 3|utility:success,Step 4|utility:success,Step 5|utility:success"
+  />
+  <design:attribute name="cardTitle" label="Card Title" default="Card Title" />
+  <design:attribute
+    name="cardTitleColor"
+    label="Card Title Color"
+    default="#000000"
+    placeholder="#000000"
+    description="Hexadecimal color value"
+  />
+  <design:attribute
+    name="cardIcon"
+    label="Card Icon"
+    default="standard:events"
+    placeholder="standard:events"
+    description="Icon's reference https://www.lightningdesignsystem.com/icons/"
+  />
+  <design:attribute
+    name="checkBoxApiName"
+    label="Checkbox Api Name"
+    placeholder="Example__c"
+    description="API Name of a checkbox field to toggle when it reaches the final step. Ex: Example__c"
+  />
+  <design:attribute
+    name="toastMessage"
+    label="Success Toast Message"
+    default="Success!"
+  />
+</design:component>

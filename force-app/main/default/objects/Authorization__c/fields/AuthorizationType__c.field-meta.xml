@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AuthorizationType__c</fullName>
+    <label>Authorization Type</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>Agency</fullName>
+                <default>false</default>
+                <label>Agency</label>
+            </value>
+            <value>
+                <fullName>Agency with Choice</fullName>
+                <default>false</default>
+                <label>Agency with Choice</label>
+            </value>
+            <value>
+                <fullName>Daycare - Respite</fullName>
+                <default>false</default>
+                <label>Daycare - Respite</label>
+            </value>
+            <value>
+                <fullName>FMS Daycare</fullName>
+                <default>false</default>
+                <label>FMS Daycare</label>
+            </value>
+            <value>
+                <fullName>FMS Respite</fullName>
+                <default>false</default>
+                <label>FMS Respite</label>
+            </value>
+            <value>
+                <fullName>FMS Transportation</fullName>
+                <default>false</default>
+                <label>FMS Transportation</label>
+            </value>
+            <value>
+                <fullName>Homemaker</fullName>
+                <default>false</default>
+                <label>Homemaker</label>
+            </value>
+            <value>
+                <fullName>Independent Living Services</fullName>
+                <default>false</default>
+                <label>Independent Living Services</label>
+            </value>
+            <value>
+                <fullName>PDS PA</fullName>
+                <default>false</default>
+                <label>PDS PA</label>
+            </value>
+            <value>
+                <fullName>Personal Assistance</fullName>
+                <default>false</default>
+                <label>Personal Assistance</label>
+            </value>
+            <value>
+                <fullName>Personal Care and Homemaker</fullName>
+                <default>false</default>
+                <label>Personal Care and Homemaker</label>
+            </value>
+            <value>
+                <fullName>PIP</fullName>
+                <default>false</default>
+                <label>PIP</label>
+            </value>
+            <value>
+                <fullName>Respite</fullName>
+                <default>false</default>
+                <label>Respite</label>
+            </value>
+            <value>
+                <fullName>Social Recreation Coaching</fullName>
+                <default>false</default>
+                <label>Social Recreation Coaching</label>
+            </value>
+            <value>
+                <fullName>Specialized Respite</fullName>
+                <default>false</default>
+                <label>Specialized Respite</label>
+            </value>
+            <value>
+                <fullName>Specialized Supervision</fullName>
+                <default>false</default>
+                <label>Specialized Supervision</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

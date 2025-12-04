@@ -1,0 +1,74 @@
+<template>
+    <div class="verification-container">
+        <!-- Required Fields Section -->
+        <template if:true={hasRequiredFields}>
+            <div class="section-header required-section">
+                <h2 class="section-title">Required Verification Information</h2>
+                <p class="section-subtitle">Verify all fields.</p>
+            </div>
+            <template for:each={requiredFields} for:item="field">
+                <div key={field.name} class="verification-field required-field">
+                    <div class="field-content">
+                        <span class="field-label">
+                            <span class="required-indicator">* </span>
+                            {field.label}
+                        </span>
+                        <span class="field-value">{field.value}</span>
+                    </div>
+                    <div class="button-group">
+                        <button 
+                            class={field.buttonClass.check}
+                            onclick={handleVerify}
+                            data-field={field.name}
+                            data-action="verify"
+                            aria-label={field.ariaLabel.verify}>
+                            ✓
+                        </button>
+                        <button 
+                            class={field.buttonClass.reject}
+                            onclick={handleReject}
+                            data-field={field.name}
+                            data-action="reject"
+                            aria-label={field.ariaLabel.reject}>
+                            ✕
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </template>
+
+        <!-- Optional Fields Section -->
+        <template if:true={hasOptionalFields}>
+            <div class="section-header optional-section">
+                <h2 class="section-title">Optional Verification Information</h2>
+                <p class="section-subtitle">Verify at least 1 field.</p>
+            </div>
+            <template for:each={optionalFields} for:item="field">
+                <div key={field.name} class="verification-field">
+                    <div class="field-content">
+                        <span class="field-label">{field.label}</span>
+                        <span class="field-value">{field.value}</span>
+                    </div>
+                    <div class="button-group">
+                        <button 
+                            class={field.buttonClass.check}
+                            onclick={handleVerify}
+                            data-field={field.name}
+                            data-action="verify"
+                            aria-label={field.ariaLabel.verify}>
+                            ✓
+                        </button>
+                        <button 
+                            class={field.buttonClass.reject}
+                            onclick={handleReject}
+                            data-field={field.name}
+                            data-action="reject"
+                            aria-label={field.ariaLabel.reject}>
+                            ✕
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>
