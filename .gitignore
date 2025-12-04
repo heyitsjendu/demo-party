@@ -1,0 +1,31 @@
+# Salesforce cache
+.sf/
+.sfdx/
+.localdevserver/
+
+# LWC VSCode autocomplete
+**/lwc/**/*.d.ts
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Salesforce metadata that changes often
+**/.eslintcache
+
+# Config files
+.vscode/
+.idea/
+
+# Project settings
+.project
+.classpath
+.settings/
