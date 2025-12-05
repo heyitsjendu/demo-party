@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title="Quick Dial" icon-name="utility:phone_portrait">
+        <div class="slds-p-around_medium">
+            <template if:true={hasPhone}>
+                <div class="slds-m-bottom_small">
+                    <lightning-button
+                        variant="brand"
+                        label={primaryPhone}
+                        icon-name="utility:call"
+                        onclick={handleDialPrimary}
+                        class="slds-m-bottom_x-small dial-button">
+                    </lightning-button>
+                    <p class="slds-text-color_weak slds-text-body_small">Primary Phone</p>
+                </div>
+            </template>
+
+            <template if:true={hasMobile}>
+                <div class="slds-m-bottom_small">
+                    <lightning-button
+                        variant="neutral"
+                        label={mobilePhone}
+                        icon-name="utility:call"
+                        onclick={handleDialMobile}
+                        class="slds-m-bottom_x-small dial-button">
+                    </lightning-button>
+                    <p class="slds-text-color_weak slds-text-body_small">Mobile Phone</p>
+                </div>
+            </template>
+
+            <template if:false={hasPhone}>
+                <p class="slds-text-color_weak slds-text-align_center">
+                    <lightning-icon icon-name="utility:info" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                    No phone number available
+                </p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

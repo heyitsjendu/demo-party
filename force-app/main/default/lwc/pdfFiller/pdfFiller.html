@@ -1,0 +1,277 @@
+<!-- pdfFiller.html -->
+<template>
+    <lightning-card title="Purchase Agreement Preview" icon-name="doctype:pdf">
+        <div class="slds-p-around_medium">
+            
+            <template if:false={showPreview}>
+                <div class="slds-text-align_center slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading data..."></lightning-spinner>
+                </div>
+            </template>
+
+            <template if:true={showPreview}>
+                <!-- Customer Information Section -->
+                <div class="slds-box slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Customer Information</h3>
+                    
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input 
+                                label="Customer Name" 
+                                value={formData.customerName}
+                                onchange={handleFieldChange}
+                                data-field="customerName">
+                            </lightning-input>
+                        </lightning-layout-item>
+                        
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input 
+                                label="Practice Name" 
+                                value={formData.practiceName}
+                                onchange={handleFieldChange}
+                                data-field="practiceName">
+                            </lightning-input>
+                        </lightning-layout-item>
+                        
+                        <lightning-layout-item size="12" padding="around-small">
+                            <lightning-input 
+                                label="Address" 
+                                value={formData.address}
+                                onchange={handleFieldChange}
+                                data-field="address">
+                            </lightning-input>
+                        </lightning-layout-item>
+                        
+                        <lightning-layout-item size="4" padding="around-small">
+                            <lightning-input 
+                                label="City" 
+                                value={formData.city}
+                                onchange={handleFieldChange}
+                                data-field="city">
+                            </lightning-input>
+                        </lightning-layout-item>
+                        
+                        <lightning-layout-item size="4" padding="around-small">
+                            <lightning-input 
+                                label="State" 
+                                value={formData.state}
+                                onchange={handleFieldChange}
+                                data-field="state">
+                            </lightning-input>
+                        </lightning-layout-item>
+                        
+                        <lightning-layout-item size="4" padding="around-small">
+                            <lightning-input 
+                                label="ZIP" 
+                                value={formData.zip}
+                                onchange={handleFieldChange}
+                                data-field="zip">
+                            </lightning-input>
+                        </lightning-layout-item>
+                        
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input 
+                                label="Email" 
+                                type="email"
+                                value={formData.email}
+                                onchange={handleFieldChange}
+                                data-field="email">
+                            </lightning-input>
+                        </lightning-layout-item>
+                        
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input 
+                                label="Telephone" 
+                                type="tel"
+                                value={formData.telephone}
+                                onchange={handleFieldChange}
+                                data-field="telephone">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+
+                <!-- Milling Unit Options -->
+                <div class="slds-box slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">FASTMILL.IO Milling Unit Pricing Options</h3>
+                    
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12" padding="around-small">
+                            <lightning-input 
+                                label="Quantity" 
+                                type="number"
+                                value={formData.millingQuantity}
+                                onchange={handleFieldChange}
+                                data-field="millingQuantity">
+                            </lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" padding="around-small">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Select Pricing Option</label>
+                                <lightning-radio-group 
+                                    options={millingPricingOptions}
+                                    value={formData.millingPricingOption}
+                                    onchange={handleMillingOptionChange}
+                                    type="radio">
+                                </lightning-radio-group>
+                            </div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" padding="around-small">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Software Support & License Billing</label>
+                                <lightning-radio-group 
+                                    options={softwareBillingOptions}
+                                    value={formData.softwareBilling}
+                                    onchange={handleSoftwareBillingChange}
+                                    type="radio">
+                                </lightning-radio-group>
+                            </div>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" padding="around-small">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label">Hardware Support & Warranty Billing</label>
+                                <lightning-radio-group 
+                                    options={hardwareBillingOptions}
+                                    value={formData.hardwareBilling}
+                                    onchange={handleHardwareBillingChange}
+                                    type="radio">
+                                </lightning-radio-group>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+
+                <!-- Ceramic Furnace Options -->
+                <div class="slds-box slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">FINALSTAGE.IO™ Ceramic Furnace</h3>
+                    
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12" padding="around-small">
+                            <lightning-input 
+                                label="Quantity" 
+                                type="number"
+                                value={formData.furnaceQuantity}
+                                onchange={handleFieldChange}
+                                data-field="furnaceQuantity">
+                            </lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" padding="around-small">
+                            <lightning-input 
+                                label="Purchase Price" 
+                                type="number"
+                                formatter="currency"
+                                value={formData.furnacePrice}
+                                onchange={handleFieldChange}
+                                data-field="furnacePrice">
+                            </lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" padding="around-small">
+                            <lightning-input 
+                                type="checkbox"
+                                label="Three Year (3,750 muffle hours) Warranty Included"
+                                checked={formData.furnaceWarranty}
+                                onchange={handleFurnaceWarrantyChange}>
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+
+                <!-- Purchase Information Section -->
+                <div class="slds-box slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Purchase Totals</h3>
+                    
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input 
+                                label="Subtotal - glidewell.io" 
+                                type="number"
+                                formatter="currency"
+                                value={formData.subtotalGlidewell}
+                                onchange={handleFieldChange}
+                                data-field="subtotalGlidewell">
+                            </lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input 
+                                label="Subtotal - Intraoral Scanner" 
+                                type="number"
+                                formatter="currency"
+                                value={formData.subtotalScanner}
+                                onchange={handleFieldChange}
+                                data-field="subtotalScanner">
+                            </lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input 
+                                label="Shipping" 
+                                type="number"
+                                formatter="currency"
+                                value={formData.shipping}
+                                onchange={handleFieldChange}
+                                data-field="shipping">
+                            </lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="6" padding="around-small">
+                            <lightning-input 
+                                label="Total Purchase Price" 
+                                type="number"
+                                formatter="currency"
+                                value={formData.totalPrice}
+                                onchange={handleFieldChange}
+                                data-field="totalPrice">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+
+                <!-- Payment Options -->
+                <div class="slds-box slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Payment Options</h3>
+                    
+                    <lightning-layout>
+                        <lightning-layout-item size="12" padding="around-small">
+                            <lightning-radio-group 
+                                options={paymentOptions}
+                                value={formData.paymentOption}
+                                onchange={handlePaymentOptionChange}
+                                type="radio">
+                            </lightning-radio-group>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="slds-text-align_center slds-m-top_medium">
+                    <lightning-button
+                        variant="brand"
+                        label="Generate Contract"
+                        onclick={handleGeneratePdf}
+                        disabled={isLoading}
+                        class="slds-m-right_small">
+                    </lightning-button>
+                    
+                    <lightning-button
+                        variant="neutral"
+                        label="Reset to Salesforce Data"
+                        onclick={handleReset}
+                        disabled={isLoading}>
+                    </lightning-button>
+                </div>
+
+                <template if:true={isLoading}>
+                    <div class="slds-m-top_medium">
+                        <lightning-spinner alternative-text="Generating PDF..."></lightning-spinner>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

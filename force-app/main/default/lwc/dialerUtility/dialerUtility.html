@@ -1,0 +1,134 @@
+<template>
+    <!-- Idle State -->
+    <template if:true={isIdle}>
+        <div class="slds-box slds-theme_shade slds-text-align_center" style="padding: 2rem;">
+            <lightning-icon icon-name="utility:phone_portrait" size="large" class="slds-m-bottom_small"></lightning-icon>
+            <p class="slds-text-heading_small">Dialer Ready</p>
+            <template if:true={currentRecordId}>
+                <p class="slds-text-color_weak slds-m-top_small">
+                    TEST Open this while viewing a Contact or Lead<br/>
+                    to automatically load their information
+                </p>
+            </template>
+            <template if:false={currentRecordId}>
+                <p class="slds-text-color_weak slds-m-top_small">
+                    TEST Navigate to a Contact or Lead record,<br/>
+                    then open this dialer to call them
+                </p>
+            </template>
+        </div>
+    </template>
+
+    <!-- Confirm Call State -->
+    <template if:true={isConfirm}>
+        <div class="slds-box">
+            <div class="slds-text-align_center slds-m-bottom_medium">
+                <div class="slds-avatar slds-avatar_large slds-m-bottom_small">
+                    <lightning-icon icon-name="standard:contact" size="large"></lightning-icon>
+                </div>
+                <h2 class="slds-text-heading_medium slds-m-bottom_x-small">{contactName}</h2>
+                <p class="slds-text-color_weak">{formattedPhone}</p>
+            </div>
+
+            <div class="slds-text-align_center">
+                <p class="slds-text-heading_small slds-m-bottom_medium">Call {contactName} now?</p>
+                
+                <div class="button-group">
+                    <lightning-button 
+                        variant="brand" 
+                        label="Call Now" 
+                        icon-name="utility:call"
+                        onclick={handleCallNow}
+                        class="slds-m-right_small call-button">
+                    </lightning-button>
+                    <lightning-button 
+                        variant="neutral" 
+                        label="Cancel" 
+                        onclick={handleCancel}>
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Active Call State -->
+    <template if:true={isCalling}>
+        <div class="slds-box calling-state">
+            <div class="slds-text-align_center">
+                <div class="slds-m-bottom_medium">
+                    <div class="avatar-pulse slds-m-bottom_small">
+                        <lightning-icon icon-name="standard:contact" size="large"></lightning-icon>
+                    </div>
+                    <h2 class="slds-text-heading_medium slds-m-bottom_x-small">{contactName}</h2>
+                    <p class="slds-text-color_weak slds-m-bottom_small">{formattedPhone}</p>
+                </div>
+
+                <div class="call-timer slds-m-bottom_large">
+                    <div class="timer-display">
+                        <lightning-icon icon-name="utility:clock" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        <span class="slds-text-heading_large">{formattedDuration}</span>
+                    </div>
+                    <p class="slds-text-color_success call-status">
+                        <span class="pulse-dot"></span>
+                        Call in progress
+                    </p>
+                </div>
+
+                <lightning-button 
+                    variant="destructive" 
+                    label="End Call" 
+                    icon-name="utility:end_call"
+                    onclick={handleEndCall}
+                    class="end-call-button">
+                </lightning-button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Call Notes State -->
+    <template if:true={isNotes}>
+        <div class="slds-box">
+            <div class="slds-m-bottom_medium">
+                <div class="slds-media slds-media_center">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name="utility:success" size="small" variant="success"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-text-heading_small">Call Completed</h2>
+                        <p class="slds-text-color_weak">Duration: {formattedDuration}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-form-element slds-m-bottom_medium">
+                <label class="slds-form-element__label" for="call-notes">
+                    <abbr class="slds-required" title="required">* </abbr>Call Notes
+                </label>
+                <div class="slds-form-element__control">
+                    <lightning-textarea 
+                        id="call-notes"
+                        placeholder="Enter notes about this call..."
+                        value={callNotes}
+                        onchange={handleNotesChange}
+                        rows="6">
+                    </lightning-textarea>
+                </div>
+            </div>
+
+            <div class="slds-text-align_right">
+                <lightning-button 
+                    variant="neutral" 
+                    label="Discard" 
+                    onclick={handleCancelNotes}
+                    class="slds-m-right_small">
+                </lightning-button>
+                <lightning-button 
+                    variant="brand" 
+                    label="Save Call Log" 
+                    icon-name="utility:save"
+                    onclick={handleSaveCall}>
+                </lightning-button>
+            </div>
+        </div>
+    </template>
+</template>
