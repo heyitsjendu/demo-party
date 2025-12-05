@@ -6,6 +6,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import pdfLib from '@salesforce/resourceUrl/pdfLib';
 import pdfTemplate from '@salesforce/resourceUrl/PurchaseAgreementTemplate';
 import attachPdfAndCreateEnvelope from '@salesforce/apex/PdfFillerController.attachPdfAndCreateEnvelope';
+import { CloseActionScreenEvent } from 'lightning/actions';
 
 // Import Opportunity fields
 import ACCOUNT_NAME from '@salesforce/schema/Opportunity.Account.Name';
@@ -22,7 +23,7 @@ export default class PdfFiller extends LightningElement {
     pdfLibLoaded = false;
     opportunityRecord;
     showPreview = false;
-    
+
     // Picklist options
     millingPricingOptions = [
         { label: 'Option 1: $54,995', value: 'option1' },
@@ -45,7 +46,7 @@ export default class PdfFiller extends LightningElement {
         { label: 'Bank Wire Transfer', value: 'wire' },
         { label: 'Third-Party Financing', value: 'financing' }
     ];
-    
+
     // Form data
     formData = {
         customerName: '',
@@ -72,8 +73,8 @@ export default class PdfFiller extends LightningElement {
 
     originalData = {};
 
-    @wire(getRecord, { 
-        recordId: '$recordId', 
+    @wire(getRecord, {
+        recordId: '$recordId',
         fields: [ACCOUNT_NAME, BILLING_STREET, BILLING_CITY, BILLING_STATE, BILLING_POSTAL_CODE, AMOUNT, OPP_NAME]
     })
     wiredOpportunity({ error, data }) {
@@ -165,7 +166,7 @@ export default class PdfFiller extends LightningElement {
         }
 
         this.isLoading = true;
-        
+
         try {
             // Generate PDF
             const response = await fetch(pdfTemplate);
@@ -190,25 +191,25 @@ export default class PdfFiller extends LightningElement {
             this.fillTextField(form, 'Total Purchase Price', `$${Number(this.formData.totalPrice).toLocaleString()}`, 14);
 
             form.flatten();
-            
+
             const modifiedPdfBytes = await pdfDoc.save();
-            
+
             // Convert to base64 for Apex
             const base64Pdf = await this.arrayBufferToBase64(modifiedPdfBytes);
             const fileName = `Purchase_Agreement_${this.formData.customerName.replace(/[^a-z0-9]/gi, '_')}.pdf`;
-            
+
             console.log('📤 Uploading to Salesforce...');
-            
+
             // Call Apex to attach PDF and create records
             const result = await attachPdfAndCreateEnvelope({
                 opportunityId: this.recordId,
                 pdfBase64: base64Pdf,
                 fileName: fileName
             });
-            
+
             const resultData = JSON.parse(result);
             console.log('✅ Salesforce records created:', resultData);
-            
+
             // Also download the PDF for user
             const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
             const url = URL.createObjectURL(blob);
@@ -220,8 +221,11 @@ export default class PdfFiller extends LightningElement {
             link.click();
             document.body.removeChild(link);
             setTimeout(() => URL.revokeObjectURL(url), 100);
-            
+
             this.showToast('Success', 'PDF generated, attached to Opportunity, and DocuSign envelope created!', 'success');
+
+            // Close the action modal
+            this.dispatchEvent(new CloseActionScreenEvent());
 
         } catch (error) {
             console.error('❌ ERROR:', error);
