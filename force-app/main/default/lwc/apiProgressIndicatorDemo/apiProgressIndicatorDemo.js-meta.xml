@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>API Progress Indicator Demo Wrapper</masterLabel>
+    <description>Playground wrapper for the API Progress Indicator</description>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Default</target>
+                <target>lightningCommunity__Page</target>
+
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage,lightningCommunity__Default">
+            <property name="packageId" type="String" label="Package ID (04t...)" description="The ID of the unlocked package to install."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,104 @@
+<template>
+    <div class="slds-box slds-theme_default">
+        <div class="slds-grid slds-gutters slds-wrap">
+            
+            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+                <div class="slds-p-bottom_medium">
+                    <h1 class="slds-text-heading_medium">Einstein Discovery Card</h1>
+                    <p class="slds-text-color_weak">- Add a +/- to the score will result in a green plus or red minus.</section></p>
+                    <p class="slds-text-color_weak">- Package version allows up to 5 inputs per section.</section></p>
+
+                </div>
+
+                <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                    <lightning-accordion-section name="general" label="General Settings">
+                        <lightning-input label="Component Title" name="componentTitle" value={componentTitle} onchange={handleConfigChange}></lightning-input>
+                        
+                        <div class="slds-grid slds-gutters slds-m-top_x-small">
+                            <div class="slds-col">
+                                <lightning-input type="number" label="Score Value" name="overallScoreValue" value={overallScoreValue} onchange={handleConfigChange}></lightning-input>
+                            </div>
+                            <div class="slds-col">
+                                <lightning-input label="Score Label" name="overallScoreLabel" value={overallScoreLabel} onchange={handleConfigChange}></lightning-input>
+                            </div>
+                        </div>
+
+                        <lightning-input class="slds-m-top_x-small" label="Color Ranges" name="colorRangeDefinition" value={colorRangeDefinition} field-level-help="Format: min-max,min-max,min-max" onchange={handleConfigChange}></lightning-input>
+                    </lightning-accordion-section>
+
+                    <lightning-accordion-section name="section1" label="First Section">
+                        <lightning-input label="Section Label" name="firstSectionLabel" value={firstSectionLabel} onchange={handleConfigChange}></lightning-input>
+                        
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col slds-size_1-of-4">
+                                    <lightning-input label="Score 1" name="firstSectionScore1" value={firstSectionScore1} onchange={handleConfigChange}></lightning-input>
+                                </div>
+                                <div class="slds-col">
+                                    <lightning-input label="Text 1" name="firstSectionText1" value={firstSectionText1} onchange={handleConfigChange}></lightning-input>
+                                </div>
+                            </div>
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col slds-size_1-of-4">
+                                    <lightning-input label="Score 2" name="firstSectionScore2" value={firstSectionScore2} onchange={handleConfigChange}></lightning-input>
+                                </div>
+                                <div class="slds-col">
+                                    <lightning-input label="Text 2" name="firstSectionText2" value={firstSectionText2} onchange={handleConfigChange}></lightning-input>
+                                </div>
+                            </div>
+                    </lightning-accordion-section>
+
+                    <lightning-accordion-section name="section2" label="Second Section">
+                        <lightning-input label="Section Label" name="secondSectionLabel" value={secondSectionLabel} onchange={handleConfigChange}></lightning-input>
+
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col slds-size_1-of-4">
+                                    <lightning-input label="Score 1" name="secondSectionScore1" value={secondSectionScore1} onchange={handleConfigChange}></lightning-input>
+                                </div>
+                                <div class="slds-col">
+                                    <lightning-input label="Text 1" name="secondSectionText1" value={secondSectionText1} onchange={handleConfigChange}></lightning-input>
+                                </div>
+                            </div>
+                    </lightning-accordion-section>
+                </lightning-accordion>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-3 slds-p-left_large">
+                
+                <div class="slds-card slds-p-around_medium" style="background: #f3f2f2; min-height: 500px; display:flex; align-items:center; justify-content:center;">
+                    <div style="width: 100%; max-width: 400px;">
+                        <c-einstein-discovery-card
+                            component-title={componentTitle}
+                            overall-score-value={overallScoreValue}
+                            overall-score-label={overallScoreLabel}
+                            color-range-definition={colorRangeDefinition}
+                            
+                            first-section-label={firstSectionLabel}
+                            first-section-score1={firstSectionScore1}
+                            first-section-text1={firstSectionText1}
+                            first-section-score2={firstSectionScore2}
+                            first-section-text2={firstSectionText2}
+                            
+                            second-section-label={secondSectionLabel}
+                            second-section-score1={secondSectionScore1}
+                            second-section-text1={secondSectionText1}
+                        ></c-einstein-discovery-card>
+                    </div>
+                </div>
+
+                <div class="slds-m-top_medium slds-text-align_center slds-p-vertical_medium slds-box">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Like this component?</h3>
+                    <lightning-button 
+                        variant="brand" 
+                        label="Install Package" 
+                        title="Install in your Salesforce Org" 
+                        icon-name="utility:download" 
+                        onclick={handleInstall}>
+                    </lightning-button>
+                   
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</template>

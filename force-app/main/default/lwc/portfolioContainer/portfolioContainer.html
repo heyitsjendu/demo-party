@@ -1,0 +1,43 @@
+<template>
+    <div class="container">
+        
+        <div class="sticky-nav">
+            <div class="slds-tabs_default">
+                <ul class="slds-tabs_default__nav" role="tablist">
+                    
+                    <li class={einsteinTabClass} title="Einstein Discovery" role="presentation">
+                        <a class="slds-tabs_default__link" href="javascript:void(0);" onclick={selectEinstein} role="tab">
+                            <span class="slds-tabs_default__left-icon">
+                                <lightning-icon icon-name="utility:graph" size="x-small"></lightning-icon>
+                            </span>
+                            Einstein Discovery
+                        </a>
+                    </li>
+
+                    <li class={apiTabClass} title="API Progress" role="presentation">
+                        <a class="slds-tabs_default__link" href="javascript:void(0);" onclick={selectApi} role="tab">
+                            <span class="slds-tabs_default__left-icon">
+                                <lightning-icon icon-name="utility:spinner" size="x-small"></lightning-icon>
+                            </span>
+                            API Indicator
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-area slds-p-around_medium">
+            
+            <template if:true={showEinstein}>
+                <c-einstein-discovery-card-demo></c-einstein-discovery-card-demo>
+            </template>
+
+            <template if:true={showApi}>
+                <c-api-progress-indicator-demo></c-api-progress-indicator-demo>
+            </template>
+
+        </div>
+
+    </div>
+</template>

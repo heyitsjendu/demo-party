@@ -22,6 +22,7 @@ public with sharing class UserLeadSelectorController {
                 SELECT Id, Name, Company, CreatedDate, Status, License_State__c
                 FROM Lead
                 WHERE IsConverted = false
+                AND ExcludeFromNew__c = false
                 AND LeadSource = 'New Customer Form'
                 ORDER BY Name
                 LIMIT 30

@@ -1,0 +1,136 @@
+<template>
+    <div class="slds-box slds-theme_default">
+        <div class="slds-grid slds-gutters slds-wrap">
+
+
+            <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+                <div class="slds-p-bottom_medium">
+                    <h1 class="slds-text-heading_medium">API Progress Indicator</h1>
+                    <p class="slds-text-color_weak">- Customize labels, timing, and colors</p>
+                    <p class="slds-text-color_weak">- Can be used in a screen flow or on lightning page</p>
+                    <p class="slds-text-color_weak">- "Manual" button sets variable that can be used as visibilty criteria in a flow</p>
+
+
+                </div>
+
+                <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+
+                    <lightning-accordion-section name="steps" label="Step Labels">
+                        <lightning-input label="Step 1" name="step1Label" value={step1Label}
+                            onchange={handleConfigChange}></lightning-input>
+                        <lightning-input class="slds-m-top_x-small" label="Step 2" name="step2Label" value={step2Label}
+                            onchange={handleConfigChange}></lightning-input>
+                        <lightning-input class="slds-m-top_x-small" label="Step 3" name="step3Label" value={step3Label}
+                            onchange={handleConfigChange}></lightning-input>
+                        <lightning-input class="slds-m-top_x-small" label="Step 4" name="step4Label" value={step4Label}
+                            onchange={handleConfigChange}></lightning-input>
+                        <lightning-input class="slds-m-top_x-small" label="Step 5" name="step5Label" value={step5Label}
+                            onchange={handleConfigChange}></lightning-input>
+                    </lightning-accordion-section>
+
+                    <lightning-accordion-section name="appearance" label="Appearance & Buttons">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col">
+                                <lightning-input type="color" label="Button Color" name="buttonColor" value={buttonColor}
+                                    onchange={handleConfigChange}></lightning-input>
+                            </div>
+                            <div class="slds-col">
+                                <lightning-input type="color" label="Text Color" name="buttonTextColor"
+                                    value={buttonTextColor} onchange={handleConfigChange}></lightning-input>
+                            </div>
+                        </div>
+
+                        <lightning-input class="slds-m-top_small" label="Manual Button Label" name="manualButtonLabel"
+                            value={manualButtonLabel} onchange={handleConfigChange}></lightning-input>
+                        <lightning-input class="slds-m-top_x-small" label="API Button Label" name="apiButtonLabel"
+                            value={apiButtonLabel} onchange={handleConfigChange}></lightning-input>
+
+                        <div class="slds-m-top_small">
+                            <lightning-input type="toggle" label="Hide Manual Button" name="hideManualButton"
+                                checked={hideManualButton} onchange={handleConfigChange}></lightning-input>
+                            <lightning-input type="toggle" label="Hide API Button" name="hideApiButton"
+                                checked={hideApiButton} onchange={handleConfigChange}></lightning-input>
+                            <lightning-input type="toggle" label="Show as Card" name="showAsCard" checked={showAsCard}
+                                onchange={handleConfigChange}></lightning-input>
+                        </div>
+
+                        <template if:true={showAsCard}>
+                            <lightning-input class="slds-m-top_x-small" label="Card Title" name="cardTitle"
+                                value={cardTitle} onchange={handleConfigChange}></lightning-input>
+                        </template>
+                    </lightning-accordion-section>
+
+                    <lightning-accordion-section name="behavior" label="Behavior">
+                        <lightning-input type="toggle" label="Auto Start" name="autoStart" checked={autoStart}
+                            onchange={handleConfigChange}></lightning-input>
+                        <lightning-input class="slds-m-top_small" type="number" label="Step Duration (ms)"
+                            name="stepDuration" value={stepDuration} onchange={handleConfigChange}></lightning-input>
+                        <lightning-input class="slds-m-top_small" label="Completion Message" name="completionMessage"
+                            value={completionMessage} onchange={handleConfigChange}></lightning-input>
+                    </lightning-accordion-section>
+
+                    <lightning-accordion-section name="records" label="Record Updates">
+                        <lightning-input type="toggle" label="Update Record on Complete" name="updateRecordOnComplete"
+                            checked={updateRecordOnComplete} onchange={handleConfigChange}></lightning-input>
+                        <lightning-input class="slds-m-top_small" label="Field API Name" name="fieldApiName"
+                            value={fieldApiName} onchange={handleConfigChange}></lightning-input>
+                        <lightning-input class="slds-m-top_x-small" label="Field Value" name="fieldValue"
+                            value={fieldValue} onchange={handleConfigChange}></lightning-input>
+                        <p class="slds-text-body_small slds-text-color_weak slds-m-top_small">
+                            Note: Record updates require the component to be on a valid Record Page.
+                        </p>
+                    </lightning-accordion-section>
+
+                </lightning-accordion>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-3 slds-p-left_large">
+
+                <div class="slds-card slds-p-around_medium"
+                    style="background: #f3f2f2; min-height: 500px; display:flex; flex-direction:column; align-items:center;">
+                    <div class="slds-text-align_center slds-m-bottom_medium">
+                        <p class="slds-text-heading_small" style="font-weight: bold;">
+                            Click the 'API' button to begin the visualization
+                        </p>
+                    </div>
+                    <div
+                        style="flex-grow: 1; width: 100%; display: flex; align-items: center; justify-content: center;">
+
+                        <div
+                            style="background: white; width: 100%; max-width: 800px; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            <c-api-progress-indicator data-id="childComponent" step1-label={step1Label}
+                                step2-label={step2Label} step3-label={step3Label} step4-label={step4Label}
+                                step5-label={step5Label} step-duration={stepDuration} button-color={buttonColor}
+                                button-text-color={buttonTextColor} manual-button-label={manualButtonLabel}
+                                api-button-label={apiButtonLabel} hide-manual-button={hideManualButton}
+                                hide-api-button={hideApiButton} completion-message={completionMessage}
+                                show-as-card={showAsCard} card-title={cardTitle} auto-start={autoStart}
+                                update-record-on-complete={updateRecordOnComplete} field-api-name={fieldApiName}
+                                field-value={fieldValue}></c-api-progress-indicator>
+                        </div>
+
+                    </div>
+
+                    <div class="slds-m-top_medium slds-text-align_center">
+                        <lightning-button label="Reset Progress Bar" variant="neutral"
+                            onclick={handleResetDemo}></lightning-button>
+                        <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small"
+                            style="font-style: italic;">
+                            (This button is not part of the actual component)
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="slds-m-top_medium slds-text-align_center slds-p-vertical_medium slds-box">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Like this component?</h3>
+                    <lightning-button variant="brand" label="Install Package" title="Install in your Salesforce Org"
+                        icon-name="utility:download" onclick={handleInstall}>
+                    </lightning-button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</template>

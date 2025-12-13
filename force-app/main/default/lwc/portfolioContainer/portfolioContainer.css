@@ -1,0 +1,60 @@
+/* 1. STICKY NAV BAR */
+.sticky-nav {
+    position: fixed; 
+    top: 90px;      
+    left: 0;
+    width: 100%;    
+    z-index: 50;    
+    
+    background-color: #ffffff; 
+    box-shadow: 0 4px 6px -4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: flex-start; 
+    padding-left: 2rem; 
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+
+}
+
+/* 2. TAB TEXT & SIZING */
+.slds-tabs_default__link {
+    /* CHANGE: Increase Font Size */
+    font-size: 1.125rem; 
+    font-weight: 400;
+    color: #939393; /* Dark gray text */
+    text-decoration: none !important;
+}
+
+/* CHANGE: Active Tab Styling (Since we removed the blue line) */
+.slds-tabs_default__item.slds-is-active .slds-tabs_default__link {
+    color: #0176d3; /* Salesforce Blue text for active state */
+    font-weight: bold;
+}
+
+/* CHANGE: Remove the "Long Blue Line" (Standard SLDS Active Indicator) */
+.slds-tabs_default__item.slds-is-active:after {
+    display: none !important;
+}
+
+/* CHANGE: Remove the gray line that usually runs under all tabs */
+.slds-tabs_default__nav {
+    border-bottom: none !important;
+}
+
+/* 3. ICON SPACING */
+.slds-tabs_default__left-icon {
+    /* CHANGE: Add space between icon and name */
+    margin-right: 0.75rem; 
+}
+
+/* 4. CONTAINER & CONTENT */
+.container {
+    /* Keep this about 50px larger than your 'top' value above */
+    padding-top: 120px; 
+    position: relative;
+}
+
+.content-area {
+    background-color: #ffffff;
+    min-height: 100vh; 
+}

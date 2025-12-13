@@ -18,7 +18,6 @@ export default class UserLeadSelector extends LightningElement {
     leadColumns = [
         { label: 'Name', fieldName: 'Name', type: 'text', sortable: true },
         { label: 'Company', fieldName: 'Company', type: 'text', sortable: true },
-        { label: 'Status', fieldName: 'Status', type: 'text' },
         { label: 'State', fieldName: 'License_State__c', type: 'text' },
         { label: 'Created Date', fieldName: 'CreatedDate', type: 'date' }
     ];

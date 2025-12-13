@@ -2,8 +2,8 @@
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>61.0</apiVersion>
     <isExposed>true</isExposed>
+    <masterLabel>Dialer V2</masterLabel>
     <targets>
         <target>lightning__UtilityBar</target>
     </targets>
-    <masterLabel>Dialer</masterLabel>
 </LightningComponentBundle>

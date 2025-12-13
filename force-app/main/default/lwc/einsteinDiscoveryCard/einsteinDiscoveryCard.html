@@ -1,0 +1,48 @@
+<template>
+    <div class="slds-card slds-card_boundary">
+        <div class="header-container" style={headerBackgroundStyle}>
+            <div class="header-content slds-p-horizontal_large">
+                <h2 class="header-title">{componentTitle}</h2>
+            </div>
+            </div>
+
+        <div class="slds-p-horizontal_large slds-p-vertical_medium">
+            <div class="slds-grid slds-grid_vertical-align-center slds-m-bottom_medium">
+                <div class={scoreColorClass}>{overallScoreValue}</div>
+                <div class="slds-text-color_weak slds-text-title_caps slds-m-left_small" style="font-weight: 600;">{overallScoreLabel}</div>
+            </div>
+
+            <hr class="slds-m-vertical_medium" />
+
+            <div class="slds-m-bottom_medium">
+                <h3 class="slds-text-title_caps slds-text-color_weak slds-m-bottom_small" style="font-weight: 600;">{firstSectionLabel}</h3>
+                <template if:true={hasFirstSectionItems}>
+                    <ul class="slds-list_vertical">
+                        <template for:each={firstSectionItems} for:item="item">
+                            <li key={item.id} class="slds-item slds-grid slds-m-bottom_x-small">
+                                <span class={item.scoreClass}>{item.score}</span>
+                                <span class="slds-m-left_small">{item.text}</span>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+            </div>
+
+            <hr class="slds-m-vertical_medium" />
+
+            <div>
+                <h3 class="slds-text-title_caps slds-text-color_weak slds-m-bottom_small" style="font-weight: 600;">{secondSectionLabel}</h3>
+                <template if:true={hasSecondSectionItems}>
+                    <ul class="slds-list_vertical">
+                        <template for:each={secondSectionItems} for:item="item">
+                            <li key={item.id} class="slds-item slds-grid slds-m-bottom_x-small">
+                                <span class={item.scoreClass}>{item.score}</span>
+                                <span class="slds-m-left_small">{item.text}</span>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

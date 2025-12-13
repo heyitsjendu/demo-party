@@ -24,7 +24,6 @@ export default class PdfFiller extends LightningElement {
     opportunityRecord;
     showPreview = false;
 
-    // Picklist options
     millingPricingOptions = [
         { label: 'Option 1: $54,995', value: 'option1' },
         { label: 'Option 2: $76,995 / $71,995 (5 Years Support)', value: 'option2' }
@@ -47,7 +46,6 @@ export default class PdfFiller extends LightningElement {
         { label: 'Third-Party Financing', value: 'financing' }
     ];
 
-    // Form data
     formData = {
         customerName: '',
         practiceName: '',
@@ -81,9 +79,8 @@ export default class PdfFiller extends LightningElement {
         if (data) {
             this.opportunityRecord = data;
             this.loadDataIntoForm();
-            console.log('✅ Opportunity loaded');
         } else if (error) {
-            console.error('❌ Error loading opportunity:', error);
+            console.error('Error loading opportunity:', error);
             this.showToast('Error', 'Failed to load opportunity data', 'error');
         }
     }
@@ -92,9 +89,8 @@ export default class PdfFiller extends LightningElement {
         try {
             await loadScript(this, pdfLib);
             this.pdfLibLoaded = true;
-            console.log('✅ PDF-lib loaded successfully');
         } catch (error) {
-            console.error('❌ Error loading pdf-lib:', error);
+            console.error('Error loading pdf-lib:', error);
             this.showToast('Error', 'Failed to load PDF library', 'error');
         }
     }
@@ -158,23 +154,20 @@ export default class PdfFiller extends LightningElement {
     }
 
     async handleGeneratePdf() {
-        console.log('🔵 Generating PDF with data:', this.formData);
-
         if (!this.pdfLibLoaded) {
             this.showToast('Error', 'PDF library not loaded', 'error');
             return;
         }
 
         this.isLoading = true;
-
+        
         try {
-            // Generate PDF
             const response = await fetch(pdfTemplate);
             const pdfBytes = await response.arrayBuffer();
             const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
             const form = pdfDoc.getForm();
 
-            // Fill customer info
+            // Fill text fields that work
             this.fillTextField(form, 'Customer Name', this.formData.customerName, 12);
             this.fillTextField(form, 'Practice Name', this.formData.practiceName, 12);
             this.fillTextField(form, 'Address', this.formData.address, 10);
@@ -183,34 +176,49 @@ export default class PdfFiller extends LightningElement {
             this.fillTextField(form, 'ZIP', this.formData.zip, 10);
             this.fillTextField(form, 'Email', this.formData.email, 10);
             this.fillTextField(form, 'Telephone', this.formData.telephone, 10);
-
-            // Fill pricing info
-            this.fillTextField(form, 'Subtotal - glidewell.io', `$${Number(this.formData.subtotalGlidewell).toLocaleString()}`, 10);
-            this.fillTextField(form, 'Subtotal - Intraoral Scanner', `$${Number(this.formData.subtotalScanner).toLocaleString()}`, 10);
-            this.fillTextField(form, 'Subtotal - Shipping', `$${Number(this.formData.shipping).toLocaleString()}`, 10);
             this.fillTextField(form, 'Total Purchase Price', `$${Number(this.formData.totalPrice).toLocaleString()}`, 14);
 
+            // Select radio buttons
+            if (this.formData.softwareBilling === 'monthly') {
+                this.selectRadioButton(form, 'License', 'Choice1');
+            } else if (this.formData.softwareBilling === 'annual') {
+                this.selectRadioButton(form, 'License', 'Choice2');
+            }
+
+            if (this.formData.hardwareBilling === 'monthly') {
+                this.selectRadioButton(form, 'Warranty', 'Choice1');
+            } else if (this.formData.hardwareBilling === 'annual') {
+                this.selectRadioButton(form, 'Warranty', 'Choice2');
+            } else if (this.formData.hardwareBilling === 'none') {
+                this.selectRadioButton(form, 'Warranty', 'Choice3');
+            }
+
+            if (this.formData.millingPricingOption === 'option2') {
+                this.selectRadioButton(form, '5 Year', 'Choice1');
+            }
+
+            if (this.formData.paymentOption === 'check') {
+                this.selectRadioButton(form, 'Payment Option', 'Choice1');
+            } else if (this.formData.paymentOption === 'wire') {
+                this.selectRadioButton(form, 'Payment Option', 'Choice2');
+            } else if (this.formData.paymentOption === 'financing') {
+                this.selectRadioButton(form, 'Payment Option', 'Choice3');
+            }
+
+            this.selectRadioButton(form, 'Oven Billing', 'Choice1');
+
             form.flatten();
-
+            
             const modifiedPdfBytes = await pdfDoc.save();
-
-            // Convert to base64 for Apex
             const base64Pdf = await this.arrayBufferToBase64(modifiedPdfBytes);
             const fileName = `Purchase_Agreement_${this.formData.customerName.replace(/[^a-z0-9]/gi, '_')}.pdf`;
-
-            console.log('📤 Uploading to Salesforce...');
-
-            // Call Apex to attach PDF and create records
+            
             const result = await attachPdfAndCreateEnvelope({
                 opportunityId: this.recordId,
                 pdfBase64: base64Pdf,
                 fileName: fileName
             });
-
-            const resultData = JSON.parse(result);
-            console.log('✅ Salesforce records created:', resultData);
-
-            // Also download the PDF for user
+            
             const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -221,21 +229,18 @@ export default class PdfFiller extends LightningElement {
             link.click();
             document.body.removeChild(link);
             setTimeout(() => URL.revokeObjectURL(url), 100);
-
-            this.showToast('Success', 'PDF generated, attached to Opportunity, and DocuSign envelope created!', 'success');
-
-            // Close the action modal
+            
+            this.showToast('Success', 'PDF generated and attached to Opportunity!', 'success');
             this.dispatchEvent(new CloseActionScreenEvent());
 
         } catch (error) {
-            console.error('❌ ERROR:', error);
-            this.showToast('Error', 'Failed to generate PDF: ' + error.body?.message || error.message, 'error');
+            console.error('ERROR:', error);
+            this.showToast('Error', 'Failed to generate PDF: ' + (error.body?.message || error.message), 'error');
         } finally {
             this.isLoading = false;
         }
     }
 
-    // Helper to convert ArrayBuffer to Base64
     arrayBufferToBase64(buffer) {
         return new Promise((resolve, reject) => {
             const blob = new Blob([buffer], { type: 'application/pdf' });
@@ -254,9 +259,17 @@ export default class PdfFiller extends LightningElement {
             const field = form.getTextField(fieldName);
             field.setText(String(value || ''));
             field.setFontSize(fontSize);
-            console.log(`✅ Set "${fieldName}" = "${value}" (${fontSize}pt)`);
         } catch (e) {
-            console.warn(`⚠️ Could not set field "${fieldName}":`, e.message);
+            // Silently skip fields that don't exist
+        }
+    }
+
+    selectRadioButton(form, groupName, optionValue) {
+        try {
+            const radioGroup = form.getRadioGroup(groupName);
+            radioGroup.select(optionValue);
+        } catch (e) {
+            // Silently skip radio buttons that don't exist
         }
     }
 

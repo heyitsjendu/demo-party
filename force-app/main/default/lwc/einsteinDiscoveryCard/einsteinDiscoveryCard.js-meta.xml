@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Einstein Discovery Card</masterLabel>
+    <description>A configurable Einstein Discovery card with a custom header.</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage,lightning__AppPage,lightning__HomePage">
+            <property name="componentTitle" type="String" label="Component Title" default="Einstein Discovery"/>
+            <property name="overallScoreValue" type="Integer" label="Overall score value" default="62"/>
+            <property name="overallScoreLabel" type="String" label="Overall score label" default="OUTCOME SCORE"/>
+            <property name="colorRangeDefinition" type="String" label="Color range definition" default="0-25,25-75,75-100" description="Format: min-max,min-max,min-max"/>
+            
+            <property name="firstSectionLabel" type="String" label="Label for first section" default="LEADING CAUSES"/>
+            
+            <property name="firstSectionScore1" type="String" label="First section 1st Score" default="+"/>
+            <property name="firstSectionText1" type="String" label="First section 1st Text" default="Highly engaged and responsive"/>
+            
+            <property name="firstSectionScore2" type="String" label="First section 2nd Score" default="-"/>
+            <property name="firstSectionText2" type="String" label="First section 2nd Text" default="Limited access to transportation"/>
+            
+            <property name="firstSectionScore3" type="String" label="First section 3rd Score" default="-"/>
+            <property name="firstSectionText3" type="String" label="First section 3rd Text" default="Multiple missed appointments"/>
+            
+            <property name="firstSectionScore4" type="String" label="First section 4th Score"/>
+            <property name="firstSectionText4" type="String" label="First section 4th Text"/>
+            
+            <property name="firstSectionScore5" type="String" label="First section 5th Score"/>
+            <property name="firstSectionText5" type="String" label="First section 5th Text"/>
+
+            <property name="secondSectionLabel" type="String" label="Label for second section" default="HOW TO IMPROVE THIS"/>
+            
+            <property name="secondSectionScore1" type="String" label="Second section 1st Score" default="+"/>
+            <property name="secondSectionText1" type="String" label="Second section 1st Text" default="Connect with transportation program manager"/>
+            
+            <property name="secondSectionScore2" type="String" label="Second section 2nd Score"/>
+            <property name="secondSectionText2" type="String" label="Second section 2nd Text"/>
+            
+            <property name="secondSectionScore3" type="String" label="Second section 3rd Score"/>
+            <property name="secondSectionText3" type="String" label="Second section 3rd Text"/>
+            
+            <property name="secondSectionScore4" type="String" label="Second section 4th Score"/>
+            <property name="secondSectionText4" type="String" label="Second section 4th Text"/>
+            
+            <property name="secondSectionScore5" type="String" label="Second section 5th Score"/>
+            <property name="secondSectionText5" type="String" label="Second section 5th Text"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
